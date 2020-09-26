@@ -21,12 +21,12 @@ def smile(x, y, color):
     sd.circle(sd.get_point(x + 55, y + 100), 9, color, 2)
     sd.circle(sd.get_point(x + 125, y + 100), 9, color, 2)
     # Рисуем рот
-    sd.line(sd.get_point(x + 60, y + 50), sd.get_point(x + 120, y + 50), color, 2)
-    sd.line(sd.get_point(x + 60, y + 50), sd.get_point(x + 60, y + 40), color, 2)
-    sd.line(sd.get_point(x + 120, y + 50), sd.get_point(x + 120, y + 40), color, 2)
+    sd.line(sd.get_point(x + 70, y + 50), sd.get_point(x + 90, y + 60), color, 2)
+    sd.line(sd.get_point(x + 90, y + 60), sd.get_point(x + 110, y + 50), color, 2)
     # Рисуем нос
-    sd.line(sd.get_point(x + 90, y + 110), sd.get_point(x + 70, y + 70), color, 2)
-    sd.line(sd.get_point(x + 70, y + 70), sd.get_point(x + 90, y + 70), color, 2)
+    sd.line(sd.get_point(x + 75, y + 80), sd.get_point(x + 105, y + 80), color, 2)
+    sd.line(sd.get_point(x + 75, y + 80), sd.get_point(x + 90, y + 60), color, 2)
+    sd.line(sd.get_point(x + 90, y + 60), sd.get_point(x + 105, y + 80), color, 2)
     # Рисуем ушки
     sd.line(sd.get_point(x + 20, y + 130), sd.get_point(x + 50, y + 190), color, 2)
     sd.line(sd.get_point(x + 50, y + 190), sd.get_point(x + 70, y + 155), color, 2)
