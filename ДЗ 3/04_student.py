@@ -11,4 +11,13 @@
 
 educational_grant, expenses = 10000, 12000
 
-# TODO здесь ваш код
+i = 0
+sum = 0
+while i < 10:
+    sum += expenses - educational_grant
+    expenses += expenses * .03
+    i += 1
+
+print('Студенту надо попросить', round(sum, 2), 'руб')
+
+
