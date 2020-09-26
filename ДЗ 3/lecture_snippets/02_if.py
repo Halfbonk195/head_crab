@@ -38,7 +38,7 @@ if a > b and a > 0:
 if (a > b) and (a > 0 or b < 1000):
     print('успех')
 
-if 5 < b and b < 10:
+if 5 < b < 10:
     print('успех')
 
 
