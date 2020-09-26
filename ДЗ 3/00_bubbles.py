@@ -20,7 +20,7 @@ def bubble(point, step, width, color):
 
 for _ in range(100):
     point = sd.random_point()
-    step = random.randint(2, 11)
+    step = random.randint(2, 10)
     width = random.randint(2, 6)
     color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
     bubble(point, step, width, color)
