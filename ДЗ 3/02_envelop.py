@@ -20,7 +20,15 @@ paper_x, paper_y = 8, 9
 # paper_x, paper_y = 9, 11
 # (просто раскоментировать нужную строку и проверить свой код)
 
-# TODO здесь ваш код
+print('Размеры конверта', envelop_x, 'на', envelop_y)
+print('Размеры бумаги', paper_x, 'на', paper_y)
+
+if envelop_x >= paper_x and envelop_y >= paper_y:
+    print('Бумага поместится в конверт!')
+elif envelop_x >= paper_y and envelop_y >= paper_x:
+    print('Бумага поместится в конверт!')
+else:
+    print('Бумага не поместится в конверт!')
 
 # Усложненное задание, решать по желанию.
 # Заданы размеры hole_x, hole_y прямоугольного отверстия и размеры brick_х, brick_у, brick_z кирпича (все размеры
@@ -28,7 +36,7 @@ paper_x, paper_y = 8, 9
 #
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
-# hole_x, hole_y = 8, 9
+hole_x, hole_y = 8, 9
 # brick_x, brick_y, brick_z = 11, 10, 2
 # brick_x, brick_y, brick_z = 11, 2, 10
 # brick_x, brick_y, brick_z = 10, 11, 2
@@ -47,6 +55,23 @@ paper_x, paper_y = 8, 9
 # brick_x, brick_y, brick_z = 6, 3, 11
 # brick_x, brick_y, brick_z = 3, 6, 11
 # brick_x, brick_y, brick_z = 3, 11, 6
+brick_x, brick_y, brick_z = 8, 11, 6
 # (просто раскоментировать нужную строку и проверить свой код)
 
-# TODO здесь ваш код
+print('Размеры отверстия', hole_x, 'на', hole_y)
+print('Размеры кирпича', brick_x, 'на', brick_y, 'на', brick_z)
+
+if hole_x >= brick_x and hole_y >= brick_y:
+    print('Кирпич пролетел!')
+elif hole_x >= brick_y and hole_y >= brick_x:
+    print('Кирпич пролетел!')
+elif hole_x >= brick_z and hole_y >= brick_x:
+    print('Кирпич пролетел!')
+elif hole_x >= brick_x and hole_y >= brick_z:
+    print('Кирпич пролетел!')
+elif hole_x >= brick_y and hole_y >= brick_z:
+    print('Кирпич пролетел!')
+elif hole_x >= brick_z and hole_y >= brick_y:
+    print('Кирпич пролетел!')
+else:
+    print('Кирпич не пролетел!')
