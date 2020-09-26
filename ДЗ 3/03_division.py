@@ -10,4 +10,11 @@
 
 a, b = 179, 37
 
-# TODO здесь ваш код
+difference = a - b
+count = 0
+
+while difference > 0:
+    difference -= b
+    count += 1
+
+print('Целочисленное деление', a, 'на', b, 'дает', count)
