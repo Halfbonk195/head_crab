@@ -133,10 +133,10 @@ def draw_vector(start_point, angle, length_shape, inner_angle):
 point_triangle = sd.get_point(500, 400)
 angle_triangle = 0
 length_triangle = 100
-triangle(start_point=point_triangle, angle=angle_triangle, length_shape=length_triangle)
+# triangle(start_point=point_triangle, angle=angle_triangle, length_shape=length_triangle)
 # square(start_point=point_triangle, angle=angle_triangle, length_shape=length_triangle)
 # pentagon(start_point=point_triangle, angle=angle_triangle, length_shape=length_triangle)
-# hexagon(start_point=point_triangle, angle=angle_triangle, length_shape=length_triangle)
+hexagon(start_point=point_triangle, angle=angle_triangle, length_shape=length_triangle)
 
 # Часть 2-бис.
 # А теперь - сколько надо работы что бы внести изменения в код? Выгода на лицо :)
