@@ -58,20 +58,20 @@ import simple_draw as sd
 # sd.random_number()
 
 
-sd.resolution = (1400, 800)
+sd.resolution = (1600, 1000)
 
 
 def branch_draw(point, angle, length):
     if length < 5:
         return
     if 100 <= length < 150:
-        width = 6
+        width = 5
     elif 50 <= length < 100:
         width = 3
     elif length < 50:
         width = 1
     else:
-        width = 7
+        width = 6
     step_angle = 30 + sd.random_number(-12, 12)
     v1 = sd.get_vector(start_point=point, angle=angle - step_angle, length=length, width=width)
     v1.draw()
@@ -82,14 +82,12 @@ def branch_draw(point, angle, length):
     branch_draw(point=v2.end_point, angle=angle + step_angle, length=length)
 
 
-point_0 = sd.get_point(700, 30)
-root_point = sd.get_point(700, 0)
+point_0 = sd.get_point(800, 30)
+root_point = sd.get_point(800, 0)
 angle = 90
 length = 200
 sd.get_vector(start_point=root_point, angle=angle, length=30, width=7).draw()
 branch_draw(point=point_0, angle=angle, length=length)
-
-
 
 
 sd.pause()
