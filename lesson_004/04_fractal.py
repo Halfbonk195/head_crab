@@ -26,7 +26,28 @@ import simple_draw as sd
 
 # можно поиграть -шрифтами- цветами и углами отклонения
 
-# TODO здесь ваш код
+# sd.resolution = (1400, 800)
+#
+#
+# def branch_draw(point, angle, length):
+#     if length < 5:
+#         return
+#     step_angle = 30
+#     v1 = sd.get_vector(start_point=point, angle=angle - step_angle, length=length, width=2)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=point, angle=angle + step_angle, length=length, width=2)
+#     v2.draw()
+#     length *= 0.75
+#     branch_draw(point=v1.end_point, angle=angle - step_angle, length=length)
+#     branch_draw(point=v2.end_point, angle=angle + step_angle, length=length)
+#
+#
+# point_0 = sd.get_point(700, 30)
+# root_point = sd.get_point(700, 0)
+# angle = 90
+# length = 200
+# sd.get_vector(start_point=root_point, angle=angle, length=30, width=2).draw()
+# branch_draw(point=point_0, angle=angle, length=length)
 
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
@@ -35,6 +56,41 @@ import simple_draw as sd
 
 # Пригодятся функции
 # sd.random_number()
+
+
+sd.resolution = (1400, 800)
+
+
+def branch_draw(point, angle, length):
+    if length < 5:
+        return
+    if 100 <= length < 150:
+        width = 6
+    elif 50 <= length < 100:
+        width = 3
+    elif length < 50:
+        width = 1
+    else:
+        width = 7
+    step_angle = 30 + sd.random_number(-12, 12)
+    v1 = sd.get_vector(start_point=point, angle=angle - step_angle, length=length, width=width)
+    v1.draw()
+    v2 = sd.get_vector(start_point=point, angle=angle + step_angle, length=length, width=width)
+    v2.draw()
+    length *= (1 + sd.random_number(-20, 20) / 100) * 0.75
+    branch_draw(point=v1.end_point, angle=angle - step_angle, length=length)
+    branch_draw(point=v2.end_point, angle=angle + step_angle, length=length)
+
+
+point_0 = sd.get_point(700, 30)
+root_point = sd.get_point(700, 0)
+angle = 90
+length = 200
+sd.get_vector(start_point=root_point, angle=angle, length=30, width=7).draw()
+branch_draw(point=point_0, angle=angle, length=length)
+
+
+
 
 sd.pause()
 
