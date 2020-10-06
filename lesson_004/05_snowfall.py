@@ -57,22 +57,34 @@ while i < N:  # задаём начальные положения N снежи�
 # - сделать сугоб внизу экрана - если снежинка долетает до низа, оставлять её там,
 #   и добавлять новую снежинку
 # Результат решения см https://youtu.be/XBx0JtxHiLg
-def draw_snowflake(point):
+
+
+def draw_snowflake(point, len_flake):
     while True:
         sd.clear_screen()
-        sd.snowflake(center=point, length=50)
-        point.y -= sd.random_number(5, 10)
+        sd.snowflake(center=point, length=len_flake)
+        point.y -= sd.random_number(10, 20)
+        point.x += sd.random_number(-10, 10)
+        if down_snowflakes:  # отрисовывает уже упавшие снежинки
+            for point_old, len_old in down_snowflakes:
+                sd.snowflake(center=point_old, length=len_old)
 
         if point.y < 50:
+            down_snowflakes.append((point, len_flake))  # записывает положение снежинки внизу
             break
-    sd.sleep(0.1)
+        sd.sleep(0.05)
+
+
+down_snowflakes = list()  # Будет хранить положение упавших снежинок
 
 
 while True:
     x = sd.random_number(50, 1100)
     y = 700
     point = sd.get_point(x, y)
-    draw_snowflake(point=point)
+    len_flake = sd.random_number(10, 100)
+    draw_snowflake(point=point, len_flake=len_flake)
+
     if sd.user_want_exit():
         break
 
