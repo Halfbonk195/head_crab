@@ -18,7 +18,6 @@ while i < N:  # задаём начальные положения N снежи�
     snowflake_list.append([x_0, y_0, len_flake])
     i += 1
 
-print(snowflake_list)
 # Пригодятся функции
 # sd.get_point()
 # sd.snowflake()
@@ -26,33 +25,23 @@ print(snowflake_list)
 # sd.random_number()
 # sd.user_want_exit()
 
-print(max(snowflake_list))
-while True:
-    # sd.clear_screen()
-    sd.start_drawing()
-    for _, prms_flake in enumerate(snowflake_list):
-        point = sd.get_point(prms_flake[0], prms_flake[1])
-        sd.snowflake(center=point, length=prms_flake[2])
 
-    for _, prms_flake in enumerate(snowflake_list):
-        point = sd.get_point(prms_flake[0], prms_flake[1])
-        sd.snowflake(center=point, length=prms_flake[2], color=sd.background_color)
-        prms_flake[1] -= sd.random_number(3, 10)
-
-    for _, prms_flake in enumerate(snowflake_list):
-        point = sd.get_point(prms_flake[0], prms_flake[1])
-        sd.snowflake(center=point, length=prms_flake[2])
-
-    if prms_flake[1] < 50:
-        break
-
-    pass
-    sd.finish_drawing()
-    sd.sleep(0.1)
-    if sd.user_want_exit():
-        break
-
-sd.pause()
+# while True:
+#     sd.clear_screen()
+#     for _, prms_flake in enumerate(snowflake_list):
+#         point = sd.get_point(prms_flake[0], prms_flake[1])
+#         sd.snowflake(center=point, length=prms_flake[2])
+#         prms_flake[1] -= sd.random_number(3, 10)
+#         prms_flake[0] += sd.random_number(-20, 20)
+#
+#     if prms_flake[1] < 50:
+#         break
+#
+#     sd.sleep(0.1)
+#     if sd.user_want_exit():
+#         break
+#
+# sd.pause()
 
 # подсказка! для ускорения отрисовки можно
 #  - убрать clear_screen()
@@ -68,5 +57,23 @@ sd.pause()
 # - сделать сугоб внизу экрана - если снежинка долетает до низа, оставлять её там,
 #   и добавлять новую снежинку
 # Результат решения см https://youtu.be/XBx0JtxHiLg
+def draw_snowflake(point):
+    while True:
+        sd.clear_screen()
+        sd.snowflake(center=point, length=50)
+        point.y -= sd.random_number(5, 10)
+
+        if point.y < 50:
+            break
+    sd.sleep(0.1)
 
 
+while True:
+    x = sd.random_number(50, 1100)
+    y = 700
+    point = sd.get_point(x, y)
+    draw_snowflake(point=point)
+    if sd.user_want_exit():
+        break
+
+sd.pause()
