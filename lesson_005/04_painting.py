@@ -23,12 +23,17 @@ import epochal_picture.wall as wall
 import epochal_picture.shapes as shapes
 import epochal_picture.trees as trees
 import epochal_picture.smile as smile
+import epochal_picture.rainbow as rainbow
 
 
 sd.resolution = (1400, 1000)
 # Строим бек граунт
-sd.background_color = sd.COLOR_ORANGE
-sd.rectangle(left_bottom=sd.get_point(0, 650), right_top=sd.get_point(1400, 1000), width=0, color=sd.COLOR_DARK_CYAN)
+sd.background_color = sd.COLOR_DARK_BLUE    # Небо
+# Строим радугу
+rainbow.draw_rainbow(sd.get_point(500, 300), 13, 600)
+# Цвет земли
+sd.rectangle(left_bottom=sd.get_point(0, 0), right_top=sd.get_point(1400, 650), width=0, color=sd.COLOR_DARK_GREEN)
+
 
 # Строим дом
 # Строим стену дома
@@ -59,6 +64,7 @@ trees.get_tree(point=sd.get_point(1100, 150), length=110)   # Дерево на 
 
 # Строим смайлик
 smile.smile(x=870, y=160, color=sd.COLOR_BLACK)
+smile.pentagrama(x=912, y=120, color=sd.COLOR_RED)
 
 sd.pause()
 # Усложненное задание (делать по желанию)

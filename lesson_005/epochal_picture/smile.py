@@ -30,3 +30,12 @@ def smile(x, y, color):
     sd.line(sd.get_point(x + 55, y + 25), sd.get_point(x + 90, y + 35), color, 2)
     sd.line(sd.get_point(x + 52, y + 22), sd.get_point(x + 91, y + 20), color, 2)
     sd.line(sd.get_point(x + 55, y + 19), sd.get_point(x + 88, y + 5), color, 2)
+
+
+def pentagrama(x, y, color):
+    sd.line(sd.get_point(x + 22, y + 29), sd.get_point(x, y - 34), color, 2)
+    sd.line(sd.get_point(x, y - 34), sd.get_point(x - 22, y + 29), color, 2)
+    sd.line(sd.get_point(x - 22, y + 29), sd.get_point(x + 35, y - 10), color, 2)
+    sd.line(sd.get_point(x + 35, y - 10), sd.get_point(x - 35, y - 10), color, 2)
+    sd.line(sd.get_point(x - 35, y - 10), sd.get_point(x + 22, y + 29), color, 2)
+    sd.circle(sd.get_point(x, y), 37, color, 2)
