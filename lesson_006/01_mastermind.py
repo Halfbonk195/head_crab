@@ -43,4 +43,40 @@
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
 
-# TODO здесь ваш код...
+from cow_bull_engine import guess_number, check_number, is_gameover, take_rules, answers
+
+print('Игра "Быки и Коровы".')
+player_response = input('Если хотите поиграть введите "да", если хотите прочитать правила введите "правила":\n')
+
+while True:
+    guess_number()
+    if answers(player_response) == 'rules':
+        take_rules()
+        player_response = input('Играем?\n')
+        if answers(player_response) != 'game':
+            break
+
+    if answers(player_response) == 'game':
+        while True:
+            tmp_number = input('Введите предпологаемое число:\n')
+
+            if answers(tmp_number) == 'game over':
+                break
+            elif answers(tmp_number) == 'rules':
+                take_rules()
+                tmp_number = input('Введите предпологаемое число:\n')
+
+            result = check_number(number_str=tmp_number)
+            if result:
+                print('Коровы - {}, быки - {}'.format(result['cows'], result['bulls']))
+            else:
+                print('Вы ввели некорректное число!')
+
+            if is_gameover():
+                print('Вы отгадали число!')
+                break
+
+    player_response = input('Хотите сыграть еще?\n')
+    if answers(player_response) != 'game':
+        print('Ты молодец!')
+        break
