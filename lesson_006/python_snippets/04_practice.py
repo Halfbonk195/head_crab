@@ -22,9 +22,8 @@
 #  ввод вторым игроком хода - позицию и кол-во камней
 #  вывод расположения камней
 
-from nim_engine import put_stones, get_bunches, is_gameover, take_from_bunch
+from nim_engine import put_stones, get_bunches, take_from_bunch, is_gameover
 from termcolor import cprint, colored
-
 put_stones()
 user_number = 1
 while True:
@@ -34,12 +33,9 @@ while True:
     cprint('Ход игрока {}'.format(user_number), color=user_color)
     pos = input(colored('Откуда берем?', color=user_color))
     qua = input(colored('Сколько берем?', color=user_color))
-    step_successed = take_from_bunch(position=int(pos), quantity=int(qua))
-    if step_successed:
-        user_number = 2 if user_number == 1 else 1
-    else:
-        cprint('Невозможный ход!', color='red')
+    take_from_bunch(position=int(pos), quantity=int(qua))
     if is_gameover():
         break
+    user_number = 2 if user_number == 1 else 1
 
-cprint('Выйграл игрок номер {}'.format(user_number), color='red')
+print('Выиграл игрок номер {}'.format(user_number), color='red')
