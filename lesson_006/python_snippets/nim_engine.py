@@ -17,8 +17,11 @@ def put_stones():
 
 def take_from_bunch(position, quantity):
     if position in _holder:
-        _holder[position] -= quantity
-        return True
+        if 0 < quantity <= _holder[position]:
+            _holder[position] -= quantity
+            return True
+        else:
+            return False
     else:
         return False
 
