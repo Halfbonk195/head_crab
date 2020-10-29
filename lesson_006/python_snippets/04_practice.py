@@ -39,8 +39,7 @@ while True:
     if step_successed:
         user_number = 2 if user_number == 1 else 1
     else:
-        cprint('Невозможный ход!', color='red')
-
+        cprint('\nНевозможный ход!\n', color='red')
 
 
 cprint('Выиграл игрок номер {}'.format(user_number), color='red')

@@ -16,14 +16,14 @@ def put_stones():
 
 
 def take_from_bunch(position, quantity):
+    step_successed = False
     if position in _holder:
         if 0 < quantity <= _holder[position]:
             _holder[position] -= quantity
-            return True
-        else:
-            return False
-    else:
-        return False
+            step_successed = True
+
+    return step_successed
+
 
 
 def get_bunches():
