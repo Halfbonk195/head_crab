@@ -43,8 +43,8 @@ def guess_number():
 def check_number(number_str):
     global _result
     _result = {'bulls': 0, 'cows': 0}
-    if len(set(number_str)) == len(number_str) and int(number_str[0]) != 0:
-        if number_str.isnumeric() and len(number_str) == 4:
+    if len(set(number_str)) == len(number_str) and number_str.isnumeric():
+        if int(number_str[0]) != 0 and len(number_str) == 4:
             for estimated_number in number_str:
                 for guessed_number in _holder_number:
                     numbers_equal = int(estimated_number) == guessed_number
