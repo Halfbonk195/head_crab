@@ -14,7 +14,6 @@ def answers(response):
     elif response in _want_rules:
         return 'rules'
     elif response in _surrender:
-        print('Число то было простое:', _holder_number)
         return 'game over'
     else:
         return None
