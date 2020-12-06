@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+
 sd.resolution = (1200, 800)
+
+
 # Шаг 1: Реализовать падение снежинки через класс. Внести в методы:
 #  - создание снежинки с нужными параметрами
 #  - отработку изменений координат
@@ -45,9 +48,11 @@ def get_fallen_flakes(flakes):
             fallen_flakes.append(flake)
     return fallen_flakes
 
+
 def append_flakes(count):
     for flake in count:
         flake.__init__(y=sd.resolution[1])
+
 
 # шаг 2: создать снегопад - список объектов Снежинка в отдельном списке, обработку примерно так:
 N = 20
@@ -60,7 +65,7 @@ while True:
 
     fallen_flakes = get_fallen_flakes(flakes)  # подчитать сколько снежинок уже упало
     if fallen_flakes:
-         append_flakes(count=fallen_flakes)  # добавить еще сверху
+        append_flakes(count=fallen_flakes)  # добавить еще сверху
     sd.sleep(0.1)
     if sd.user_want_exit():
         break
