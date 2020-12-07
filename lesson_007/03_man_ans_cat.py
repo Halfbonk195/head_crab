@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from random import randint, choice
+from random import randint, choice, shuffle
 from termcolor import cprint
 
 
@@ -203,6 +203,9 @@ for day in range(1, 365):
     for cat in cats:
         print(cat)
     print(my_sweet_home)
+
+    shuffle(citizens)
+    shuffle(cats)
 
 # Усложненное задание (делать по желанию)
 # Создать несколько (2-3) котов и подселить их в дом к человеку.
