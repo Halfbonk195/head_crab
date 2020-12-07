@@ -1,0 +1,36 @@
+Index: calculation/newton_method/newton_method.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from newton_engine import find_partial_diff, newton_method\r\nfrom sympy import symbols, cos, sin, plot_implicit, Eq, Or\r\n\r\n\r\ndef f1(x, y):\r\n    return sin(2*x - y) - 1.2*x - 0.4\r\n\r\n\r\ndef f2(x, y):\r\n    return 0.8 * x**2 + 1.5 * y**2 - 1\r\n\r\n\r\nx_symb, y_symb = symbols('x, y')\r\ndiff_dict = find_partial_diff(f1(x_symb, y_symb), f2(x_symb, y_symb))\r\nfor key in diff_dict:\r\n    print(key, '=', diff_dict[key])\r\nplot_implicit(Or(Eq(f1(x_symb, y_symb), 0), Eq(f2(x_symb, y_symb), 0)), (x_symb, -3, 3), (y_symb, -3, 3))\r\n\r\nx_num = -1.1\r\ny_num = -0.2\r\nn_eps = 4\r\neps = 0.1 ** n_eps\r\n\r\n\r\nx_end, y_end, iteration = newton_method(x_num, y_num, eps)\r\nprint('\\nОтвет: x =', round(x_end, n_eps), 'y =', round(y_end, n_eps), 'количество итераций =', iteration)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- calculation/newton_method/newton_method.py	(revision eff53e9852160fa1bb1332db2ecc98967bcbd76b)
++++ calculation/newton_method/newton_method.py	(date 1606643714830)
+@@ -3,21 +3,21 @@
+ 
+ 
+ def f1(x, y):
+-    return sin(2*x - y) - 1.2*x - 0.4
++    return cos(x)+ y - 1.2
+ 
+ 
+ def f2(x, y):
+-    return 0.8 * x**2 + 1.5 * y**2 - 1
++    return 2*x - sin(y - 0.5) - 2
+ 
+ 
+ x_symb, y_symb = symbols('x, y')
+ diff_dict = find_partial_diff(f1(x_symb, y_symb), f2(x_symb, y_symb))
+ for key in diff_dict:
+     print(key, '=', diff_dict[key])
+-plot_implicit(Or(Eq(f1(x_symb, y_symb), 0), Eq(f2(x_symb, y_symb), 0)), (x_symb, -3, 3), (y_symb, -3, 3))
++plot_implicit(Or(Eq(f1(x_symb, y_symb), 0), Eq(f2(x_symb, y_symb), 0)), (x_symb, -3, 3), (y_symb, -5, 5))
+ 
+-x_num = -1.1
+-y_num = -0.2
++x_num = 0.5
++y_num = 0.6
+ n_eps = 4
+ eps = 0.1 ** n_eps
+ 
