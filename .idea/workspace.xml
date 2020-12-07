@@ -25,7 +25,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4bf33027-2aaf-40d1-b629-d09439c6e0c9" name="Default Changelist" comment="fixup! Решение системыв нелинейных уравнений методом Ньютона v2.1 Теперь рисует графики функций" />
+    <list default="true" id="4bf33027-2aaf-40d1-b629-d09439c6e0c9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lesson_007/03_man_ans_cat.py" beforeDir="false" afterPath="$PROJECT_DIR$/lesson_007/03_man_ans_cat.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +43,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitRewordedCommitMessages">
     <option name="onto" value="60dfd740f9f095a668774d0f4d5b21383f640520" />
@@ -55,7 +57,70 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.newton_method">
+  <component name="RunManager" selected="Python.03_man_ans_cat">
+    <configuration name="01_snowfall" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="head_crab" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lesson_007" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lesson_007/01_snowfall.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="02_alchemy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="head_crab" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lesson_007" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lesson_007/02_alchemy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="03_man_ans_cat" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="head_crab" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lesson_007" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lesson_007/03_man_ans_cat.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="head_crab" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -69,27 +134,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="newton_engine" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="head_crab" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/calculation/newton_method" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/calculation/newton_method/newton_engine.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -140,55 +184,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="probe1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="head_crab" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lesson_006" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lesson_006/probe1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="probe_nuton" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="head_crab" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lesson_006" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lesson_006/probe_nuton.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.03_man_ans_cat" />
+        <item itemvalue="Python.02_alchemy" />
+        <item itemvalue="Python.01_snowfall" />
         <item itemvalue="Python.newton_method" />
         <item itemvalue="Python.probe" />
-        <item itemvalue="Python.newton_engine" />
-        <item itemvalue="Python.probe_nuton" />
-        <item itemvalue="Python.probe1" />
       </list>
     </recent_temporary>
   </component>
@@ -200,13 +202,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600762406955</updated>
-    </task>
-    <task id="LOCAL-00019" summary="убрал комментарий">
-      <created>1600874797758</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1600874797758</updated>
     </task>
     <task id="LOCAL-00020" summary="Сделал 10 пузырьков в ряд">
       <created>1601099124337</created>
@@ -544,7 +539,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606462512790</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="fixup! Решение системыв нелинейных уравнений методом Ньютона v2.1 Теперь рисует графики функций">
+      <created>1607315035800</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1607315035800</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -572,7 +574,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="None" />
     <MESSAGE value="Выполнил 2 упражнение из 4-го блока" />
     <MESSAGE value="Выполнил 3 упражнение из 4-го блока" />
     <MESSAGE value="Выполнил 4 упражнение из 4-го блока" />
@@ -597,17 +598,18 @@
     <MESSAGE value="Первая рабочая версия, но очень плохо реализованная" />
     <MESSAGE value="Решение системыв нелинейных уравнений методом Ньютона v2.0" />
     <MESSAGE value="Решение системыв нелинейных уравнений методом Ньютона v2.1&#10;Теперь рисует графики функций" />
-    <option name="LAST_COMMIT_MESSAGE" value="Решение системыв нелинейных уравнений методом Ньютона v2.1&#10;Теперь рисует графики функций" />
+    <MESSAGE value="fixup! Решение системыв нелинейных уравнений методом Ньютона v2.1 Теперь рисует графики функций" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixup! Решение системыв нелинейных уравнений методом Ньютона v2.1 Теперь рисует графики функций" />
   </component>
   <component name="WindowStateProjectService">
     <state x="766" y="266" key="#xdebugger.evaluate" timestamp="1601353225560">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="766" y="266" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1601353225560" />
-    <state x="163" y="19" key="CommitChangelistDialog2" timestamp="1607314617676">
+    <state x="163" y="19" key="CommitChangelistDialog2" timestamp="1607315035045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="163" y="19" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1607314617676" />
+    <state x="163" y="19" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1607315035045" />
     <state width="829" height="582" key="DebuggerActiveHint" timestamp="1603176910477">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
@@ -624,26 +626,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="327" y="126" key="Git.Interactive.Rebase.Dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607314598339" />
-    <state width="716" height="250" key="GridCell.Tab.0.bottom" timestamp="1606645109918">
+    <state width="1893" height="157" key="GridCell.Tab.0.bottom" timestamp="1607319965358">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1253" height="177" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1603177623040" />
-    <state width="716" height="250" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606645109918" />
-    <state width="716" height="250" key="GridCell.Tab.0.center" timestamp="1606645109918">
+    <state width="1893" height="157" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607319965358" />
+    <state width="1893" height="157" key="GridCell.Tab.0.center" timestamp="1607319965358">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1253" height="177" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1603177623040" />
-    <state width="716" height="250" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606645109918" />
-    <state width="716" height="250" key="GridCell.Tab.0.left" timestamp="1606645109918">
+    <state width="1893" height="157" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607319965358" />
+    <state width="1893" height="157" key="GridCell.Tab.0.left" timestamp="1607319965358">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1253" height="177" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1603177623040" />
-    <state width="716" height="250" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606645109918" />
-    <state width="716" height="250" key="GridCell.Tab.0.right" timestamp="1606645109918">
+    <state width="1893" height="157" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607319965358" />
+    <state width="1893" height="157" key="GridCell.Tab.0.right" timestamp="1607319965358">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1253" height="177" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1603177623040" />
-    <state width="716" height="250" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606645109918" />
+    <state width="1893" height="157" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607319965358" />
     <state width="930" height="290" key="GridCell.Tab.1.bottom" timestamp="1606462515437">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -664,14 +666,14 @@
     </state>
     <state width="1253" height="278" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1603177580675" />
     <state width="930" height="290" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606462515437" />
-    <state x="92" y="67" key="MergeDialog" timestamp="1601103843556">
+    <state x="92" y="67" key="MergeDialog" timestamp="1607315084880">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="92" y="67" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601103843556" />
-    <state x="38" y="160" width="893" height="633" key="MultipleFileMergeDialog" timestamp="1601103843561">
+    <state x="92" y="67" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607315084880" />
+    <state x="38" y="160" width="893" height="633" key="MultipleFileMergeDialog" timestamp="1607315088403">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="38" y="160" width="893" height="633" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601103843561" />
+    <state x="38" y="160" width="893" height="633" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607315088403" />
     <state x="741" y="152" key="RollbackChangesDialog" timestamp="1603274859028">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -680,18 +682,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="78" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1601038005941" />
-    <state x="0" y="131" key="Vcs.Push.Dialog.v2" timestamp="1607314752962">
+    <state x="0" y="131" key="Vcs.Push.Dialog.v2" timestamp="1607315131289">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="0" y="131" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607314752962" />
+    <state x="0" y="131" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607315131289" />
     <state x="49" y="64" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1606456568718">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="49" y="64" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1606456568718" />
-    <state x="230" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607314486364">
+    <state x="230" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607315160754">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="230" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607314486364" />
+    <state x="230" y="418" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607315160754" />
     <state x="-7" y="0" width="974" height="1047" key="dock-window-1" timestamp="1603989335896">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
