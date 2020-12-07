@@ -49,7 +49,7 @@ class Man:
             self.house.food -= 10
         else:
             cprint('{} нет еды'.format(self.name), color='red')
-            self.fullness -= 5
+            self.shopping()
 
     def work(self):
         cprint('{} сходил на работу'.format(self.name), color='blue')
@@ -70,9 +70,9 @@ class Man:
             self.fullness -= 5
 
     def shopping_cat(self):
-        if self.house.money >= 50:
-            self.house.money -= 50
-            self.house.cat_food += 50
+        if self.house.money >= 60:
+            self.house.money -= 60
+            self.house.cat_food += 60
             self.fullness -= 10
             cprint('{} сходил в магазин за кошачей едой'.format(self.name), color='magenta')
         else:
@@ -98,7 +98,7 @@ class Man:
             self.eat()
         elif self.house.food < 10:
             self.shopping()
-        elif self.house.cat_food < 10:
+        elif self.house.cat_food < 20:
             self.shopping_cat()
         elif self.house.money < 50:
             self.work()
@@ -136,9 +136,13 @@ class Cat:
         cprint('Котик {} спит'.format(self.name), color='yellow')
 
     def tear_wallpaper(self):
-        self.house.cat_mud += 5
+        if self.name == 'Вуглусрат':
+            self.house.cat_mud += 50
+            cprint('Котик {} обосрал все углы в доме!!!'.format(self.name), color='green')
+        else:
+            self.house.cat_mud += 5
+            cprint('Котик {} дерет обои'.format(self.name), color='yellow')
         self.fullness -= 10
-        cprint('Котик {} дерет обои'.format(self.name), color='yellow')
 
     def act(self):
         if self.fullness <= 0:
@@ -158,10 +162,10 @@ class Cat:
 class House:
 
     def __init__(self):
-        self.food = 50
+        self.food = 60
         self.cat_food = 0
         self.cat_mud = 0
-        self.money = 50
+        self.money = 60
 
     def __str__(self):
         return 'В доме еды осталось {}, кошачей еды осталось {}, денег осталось {}, грязи {}'.format(
@@ -174,22 +178,30 @@ citizens = [
     Man(name='Кенни'),
 ]
 
-cat = Cat(name='Барсик')
+cats = [
+    Cat(name='Барсик'),
+    Cat(name='Вуглусрат'),
+    Cat(name='Борис'),
+]
+
 my_sweet_home = House()
 for citizen in citizens:
     citizen.go_to_the_house(house=my_sweet_home)
-rand_citizen = choice(citizens)
-rand_citizen.pick_up_cat(cat=cat)
+for cat in cats:
+    rand_citizen = choice(citizens)
+    rand_citizen.pick_up_cat(cat=cat)
 
-for day in range(1, 765):
+for day in range(1, 365):
     print('================ день {} =================='.format(day))
     for citizen in citizens:
         citizen.act()
-    cat.act()
+    for cat in cats:
+        cat.act()
     print('--- в конце дня ---')
     for citizen in citizens:
         print(citizen)
-    print(cat)
+    for cat in cats:
+        print(cat)
     print(my_sweet_home)
 
 # Усложненное задание (делать по желанию)
