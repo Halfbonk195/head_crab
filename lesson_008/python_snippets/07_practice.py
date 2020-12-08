@@ -206,6 +206,7 @@ class AutoLoader(Vehicle):
 
 TOTAL_CARGO = 100000
 
+
 moscow = Warehouse(name='Москва', content=TOTAL_CARGO)
 piter = Warehouse(name='Питер', content=0)
 
