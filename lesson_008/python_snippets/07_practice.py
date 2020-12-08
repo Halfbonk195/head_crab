@@ -3,6 +3,7 @@
 from random import randint
 from termcolor import cprint
 
+
 # Реализуем модель доставки грузов
 
 # Дорога - хранит расстояния между обьектами
@@ -47,7 +48,7 @@ class Warehouse:
         self.queue_out = []
 
     def __str__(self):
-        return 'Склад {} груза {}'.format(self.name, self.content)
+        return 'Склад {}, груза {}'.format(self.name, self.content)
 
     def set_road_out(self, road):
         self.road_out = road
@@ -109,21 +110,22 @@ class Truck(Vehicle):
 
     def __str__(self):
         res = super().__str__()
-        return res + ' груза {}'.format(self.cargo)
+        return res + ', груза {}'.format(self.cargo)
 
     def ride(self):
         self.fuel -= self.fuel_rate
-        if self.distance_to_target > self.velocity:
+        if self.distance_to_target >= self.velocity:
             self.distance_to_target -= self.velocity
-            print('{} едет по дороге, осталось {}'.format(self.model, self.distance_to_target))
+            print('{} с грузом {}, едет по дороге из {} в {}, осталось {}'.format(
+                self.model, self.cargo, self.place.start, self.place.end, self.distance_to_target))
         else:
-            self.place.end.truck_arrived(self)
+            self.place.end.truck_arrived(truck=self)
             print('{} доехал '.format(self.model))
 
     def go_to(self, road):
         self.place = road
         self.distance_to_target = road.distance
-        print('{} выехал в путь'.format(self.model))
+        print('{} выехал в путь из {} до {}'.format(self.model, self.place.start, self.place.end))
 
     def act(self):
         if super().act():
@@ -194,8 +196,8 @@ class AutoLoader(Vehicle):
             self.truck.cargo -= self.bucket_capacity
             self.warehouse.content += self.bucket_capacity
         else:
-            self.truck.cargo -= self.truck.cargo
             self.warehouse.content += self.truck.cargo
+            self.truck.cargo = 0
         print('{} разгружал {}'.format(self.model, self.truck))
         if self.truck.cargo == 0:
             self.warehouse.truck_ready(self.truck)
@@ -213,16 +215,22 @@ piter_moscow = Road(start=piter, end=moscow, distance=780)
 moscow.set_road_out(moscow_piter)
 piter.set_road_out(piter_moscow)
 
-loader_1 = AutoLoader(model='Bobcat', bucket_capacity=1000, warehouse=moscow, role='loader')
-loader_2 = AutoLoader(model='Lonking', bucket_capacity=500, warehouse=piter, role='unloader')
+loaders = []
+for number in range(20):
+    loader = AutoLoader(model='Bobcat №{}'.format(number + 1), bucket_capacity=1000, warehouse=moscow, role='loader')
+    loaders.append(loader)
+unloaders = []
+for number in range(20):
+    unloader = AutoLoader(model='Lonking №{}'.format(number + 1), bucket_capacity=500, warehouse=piter, role='unloader')
+    unloaders.append(unloader)
 
 trucks = []
 for number in range(5):
-    truck = Truck(model='КАМАЗ #{}'.format(number), body_space=5000)
+    truck = Truck(model='КАМАЗ №{}'.format(number + 1), body_space=5000)
     moscow.truck_arrived(truck)
     trucks.append(truck)
-for number in range(5):
-    truck = OtherTruck(model='Volvo #{}'.format(number), body_space=10000)
+for number in range(15):
+    truck = OtherTruck(model='Volvo №{}'.format(number + 1), body_space=10000)
     moscow.truck_arrived(truck)
     trucks.append(truck)
 
@@ -232,17 +240,20 @@ while piter.content < TOTAL_CARGO:
     cprint('---------------- Час {} ---------------'.format(hour), color='red')
     for truck in trucks:
         truck.act()
-    loader_1.act()
-    loader_2.act()
+    for loader in loaders:
+        loader.act()
+    for unloader in unloaders:
+        unloader.act()
     moscow.act()
     piter.act()
     for truck in trucks:
         cprint(truck, color='cyan')
-    cprint(loader_1, color='cyan')
-    cprint(loader_2, color='cyan')
+    for loader in loaders:
+        cprint(loader, color='cyan')
+    for unloader in unloaders:
+        cprint(unloader, color='cyan')
     cprint(moscow, color='cyan')
     cprint(piter, color='cyan')
-
 
 cprint('Всего затрачено топлива {}'.format(Vehicle.total_fuel), color='yellow')
 cprint('Общий простой грузовиков {}'.format(Truck.dead_time), color='yellow')
