@@ -180,18 +180,18 @@ class Wife(Human):
         print('{} прибралась дома'.format(self.name))
 
 
-home = House()
-serge = Husband(name='Сережа', home=home)
-masha = Wife(name='Маша', home=home)
+my_home = House()
+serge = Husband(name='Сережа', home=my_home)
+masha = Wife(name='Маша', home=my_home)
 
 for day in range(365):
     cprint('================== День {} =================='.format(day), color='red')
-    home.mud += 5
+    my_home.mud += 5
     serge.act()
     masha.act()
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
-    cprint(home, color='cyan')
+    cprint(my_home, color='cyan')
 
 
 # TODO после реализации первой части - отдать на проверку учителю
