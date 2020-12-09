@@ -68,7 +68,7 @@ class Human:
         return '{} счастья {}, сытость {}'.format(self.name, self.happiness, self.fullness)
 
     def eat(self):
-        eat_food = randint(20, 30)
+        eat_food = randint(15, 30)
         if self.home.food < eat_food:
             print('{} - еда закончилась!'.format(self.name))
             self.fullness -= 10
@@ -76,7 +76,7 @@ class Human:
         self.home.food -= eat_food
         self.fullness += eat_food
         Human.count_food += eat_food
-
+        self.happiness += 2
         if isinstance(self, Wife):
             print('{} поела {} еды'.format(self.name, eat_food))
         else:
@@ -102,8 +102,14 @@ class Husband(Human):
         if self.home.mud > 90:
             self.happiness -= 10
 
-        dice = randint(1, 6)
-        if dice == 1:
+        dice = randint(1, 4)
+        if self.fullness <= 10:
+            self.eat()
+        elif self.home.money < 100:
+            self.work()
+        elif self.happiness <= 10:
+            self.gaming()
+        elif dice == 1:
             self.work()
         elif dice == 2:
             self.eat()
@@ -112,13 +118,17 @@ class Husband(Human):
 
     def work(self):
         self.fullness -= 10
+        self.happiness -= 9
         self.home.money += 150
         Husband.count_money += 150
         print('{} сходил на работу'.format(self.name))
 
     def gaming(self):
         self.fullness -= 10
-        self.happiness += 20
+        if self.happiness <= 80:
+            self.happiness += 20
+        else:
+            self.happiness = 100
         print('{} весь день играл в WoT'.format(self.name))
 
 
@@ -141,18 +151,24 @@ class Wife(Human):
         if self.home.mud > 90:
             self.happiness -= 10
         dice = randint(1, 30)
-        if 1 <= dice < 10:
+        if self.fullness <= 10:
             self.eat()
-        elif 10 <= dice < 20:
+        elif self.home.food < 60:
             self.shopping()
-        elif 20 <= dice < 30:
+        elif self.home.mud > 500:
             self.clean_house()
-        elif dice == 30:
+        elif 1 <= dice < 8:
+            self.eat()
+        elif 8 <= dice < 18:
+            self.shopping()
+        elif 18 <= dice < 29:
+            self.clean_house()
+        else:
             self.buy_fur_coat()
 
     def shopping(self):
         self.fullness -= 10
-        buy_food = randint(50, 100)
+        buy_food = randint(10, 100)
         if self.home.money < buy_food:
             print('{} денег не хватает купить еду!'.format(self.name))
             return
@@ -167,16 +183,20 @@ class Wife(Human):
             return
         self.home.money -= 350
         Wife.fur_coat += 1
-        self.happiness += 60
+        if self.happiness <= 40:
+            self.happiness += 60
+        else:
+            self.happiness = 100
         print('{} купила себе шубу!'.format(self.name))
 
     def clean_house(self):
         self.fullness -= 10
+        self.happiness -= 5
         cleaning = randint(10, 100)
         if self.home.mud < cleaning:
             self.home.mud = 0
         else:
-            self.home.mud -= randint(10, 100)
+            self.home.mud -= cleaning
         print('{} прибралась дома'.format(self.name))
 
 
@@ -192,9 +212,9 @@ for day in range(365):
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(my_home, color='cyan')
+print('Еды съедено - {}, шуб куплено - {}, денег заработано - {}'.format(Human.count_food, Wife.fur_coat,
+                                                                         Husband.count_money))
 
-
-# TODO после реализации первой части - отдать на проверку учителю
 
 ######################################################## Часть вторая
 #
