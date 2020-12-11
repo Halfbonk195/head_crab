@@ -4,45 +4,6 @@ from termcolor import cprint
 from random import randint
 
 
-######################################################## Часть первая
-#
-# Создать модель жизни небольшой семьи.
-#
-# Каждый день участники жизни могут делать только одно действие.
-# Все вместе они должны прожить год и не умереть.
-#
-# Муж может:
-#   есть,
-#   играть в WoT,
-#   ходить на работу,
-# Жена может:
-#   есть,
-#   покупать продукты,
-#   покупать шубу,
-#   убираться в доме,
-
-# Все они живут в одном доме, дом характеризуется:
-#   кол-во денег в тумбочке (в начале - 100)
-#   кол-во еды в холодильнике (в начале - 50)
-#   кол-во грязи (в начале - 0)
-#
-# У людей есть имя, степень сытости (в начале - 30) и степень счастья (в начале - 100).
-#
-# Любое действие, кроме "есть", приводит к уменьшению степени сытости на 10 пунктов
-# Кушают взрослые максимум по 30 единиц еды, степень сытости растет на 1 пункт за 1 пункт еды.
-# Степень сытости не должна падать ниже 0, иначе чел умрет от голода.
-#
-# Деньги в тумбочку добавляет муж, после работы - 150 единиц за раз.
-# Еда стоит 10 денег 10 единиц еды. Шуба стоит 350 единиц.
-#
-# Грязь добавляется каждый день по 5 пунктов, за одну уборку жена может убирать до 100 единиц грязи.
-# Если в доме грязи больше 90 - у людей падает степень счастья каждый день на 10 пунктов,
-# Степень счастья растет: у мужа от игры в WoT (на 20), у жены от покупки шубы (на 60, но шуба дорогая)
-# Степень счастья не должна падать ниже 10, иначе чел умрает от депресии.
-#
-# Подвести итоги жизни за год: сколько было заработано денег, сколько сьедено еды, сколько куплено шуб.
-
-
 class House:
 
     def __init__(self):
@@ -70,10 +31,14 @@ class Human:
 
     def eat(self):
         eat_food = randint(15, 30)
+
         if self.home.food < eat_food:
-            print('{} - еда закончилась!'.format(self.name))
-            self.fullness -= 10
-            return
+            if self.home.food > 0:
+                eat_food = self.home.food
+            else:
+                print('{} - еда закончилась!'.format(self.name))
+                self.fullness -= 10
+                return
         self.home.food -= eat_food
         self.fullness += eat_food
         Human.count_food += eat_food
@@ -113,7 +78,7 @@ class Husband(Human):
             self.happiness -= 10
 
         dice = randint(1, 5)
-        if self.fullness <= 10:
+        if self.fullness <= 15:
             self.eat()
         elif self.home.money < 100:
             self.work()
@@ -128,7 +93,7 @@ class Husband(Human):
 
     def work(self):
         self.fullness -= 10
-        self.happiness -= 9
+        self.happiness -= 7
         self.home.money += 150
         Husband.count_money += 150
         print('{} сходил на работу'.format(self.name))
@@ -163,7 +128,7 @@ class Wife(Human):
         if self.home.mud > 90:
             self.happiness -= 10
         dice = randint(1, 30)
-        if self.fullness <= 10:
+        if self.fullness <= 15:
             self.eat()
         elif self.home.food < 60:
             self.shopping()
@@ -207,14 +172,13 @@ class Wife(Human):
 
     def clean_house(self):
         self.fullness -= 10
-        self.happiness -= 5
+        self.happiness -= 4
         cleaning = randint(10, 100)
         if self.home.mud < cleaning:
             self.home.mud = 0
         else:
             self.home.mud -= cleaning
         print('{} прибралась дома'.format(self.name))
-
 
 
 class Child(Human):
@@ -231,7 +195,7 @@ class Child(Human):
             return
 
         dice = randint(1, 2)
-        if self.fullness <= 10:
+        if self.fullness <= 15:
             self.eat()
         elif dice == 1:
             self.eat()
@@ -284,8 +248,9 @@ class Cat:
             cprint('У котика по имени {} закончилась еда!'.format(self.name), color='yellow')
             self.fullness -= 10
             return
+        self.home.cat_food -= eat_food
         self.fullness += 2 * eat_food
-        cprint('Котик {} поел еды'.format(self.name), color='yellow')
+        cprint('Котик {} поел еды {} едениц'.format(self.name, eat_food), color='yellow')
 
     def sleep(self):
         self.fullness -= 10
