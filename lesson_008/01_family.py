@@ -82,7 +82,7 @@ class Husband(Human):
             self.eat()
         elif self.home.money < 100:
             self.work()
-        elif self.happiness <= 10:
+        elif self.happiness <= 20:
             self.gaming()
         elif dice == 1 or dice == 2:
             self.work()
@@ -134,6 +134,8 @@ class Wife(Human):
             self.shopping()
         elif self.home.mud > 500:
             self.clean_house()
+        elif self.happiness < 20:
+            self.buy_fur_coat()
         elif 1 <= dice < 8:
             self.eat()
         elif 8 <= dice < 18:
@@ -145,8 +147,8 @@ class Wife(Human):
 
     def shopping(self):
         self.fullness -= 10
-        buy_food = randint(10, 100)
-        buy_food_cat = randint(10, 20) if self.home.cat_food <= 50 else 0
+        buy_food = randint(30, 100) if self.home.food < 1000 else 5
+        buy_food_cat = randint(20, 40) if self.home.cat_food <= 100 else 0
 
         if self.home.money < buy_food + buy_food_cat:
             print('{} денег не хватает купить еду!'.format(self.name))
@@ -245,9 +247,12 @@ class Cat:
     def eat(self):
         eat_food = randint(5, 10)
         if self.home.cat_food < eat_food:
-            cprint('У котика по имени {} закончилась еда!'.format(self.name), color='yellow')
-            self.fullness -= 10
-            return
+            if self.home.cat_food > 0:
+                eat_food = self.home.cat_food
+            else:
+                cprint('У котика по имени {} закончилась еда!'.format(self.name), color='yellow')
+                self.fullness -= 10
+                return
         self.home.cat_food -= eat_food
         self.fullness += 2 * eat_food
         cprint('Котик {} поел еды {} едениц'.format(self.name, eat_food), color='yellow')
@@ -268,7 +273,7 @@ masha = Wife(name='Маша', home=my_home)
 kolya = Child(name='Коля', home=my_home)
 my_cat = Cat(name='Барсик', home=my_home)
 
-for day in range(365):
+for day in range(364):
     cprint('================== День {} =================='.format(day), color='red')
     my_home.mud += 5
     serge.act()
