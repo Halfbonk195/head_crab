@@ -163,7 +163,7 @@ class Wife(Human):
         self.fullness -= 10
         buy_food = randint(30, 100) if self.home.food < 1000 else 5
         buy_food_cat = 30 * (self.count_cats - Cat.cat_die) if self.home.cat_food <= 30 * (
-                    self.count_cats - Cat.cat_die) else 0
+                self.count_cats - Cat.cat_die) else 0
 
         if self.home.money < buy_food + buy_food_cat:
             # print('{} денег не хватает купить еду!'.format(self.name))
