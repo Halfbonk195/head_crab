@@ -78,6 +78,7 @@ def newton_method(x, y, eps):
 
         x += g_n
         y += h_n
-        counter_iter += 1
 
+        counter_iter += 1
+        print('x_{} = {}, y_{} = {}'.format(counter_iter, round(x, 4), counter_iter, round(y, 4)))
     return x, y, counter_iter
