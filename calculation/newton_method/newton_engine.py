@@ -33,7 +33,7 @@ def find_partial_diff_numeric(x_num, y_num):
         f = _diff_dict[key]
         f = lambdify([x, y], f, 'numpy')
         _diff_numeric[key] = f(x_num, y_num)
-
+    print(_diff_numeric)
     return _diff_numeric
 
 
