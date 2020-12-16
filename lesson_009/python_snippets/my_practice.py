@@ -3,16 +3,38 @@ import zipfile
 from pprint import pprint
 from random import randint, choice
 
+
+class Chaterer():
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return ''
+
+    def read_file(self):
+        pass
+
+    def unzip(self):
+        pass
+
+    def collect_statistics(self):
+        pass
+
+    def sort_statistics(self):
+        pass
+
+    def chat(self):
+        pass
+
+
 my_file = 'voyna-i-mir.txt.zip'
 zip_file = zipfile.ZipFile(my_file, 'r')
-# Распаковать зип файл
 
 for file_name in zip_file.namelist():
     zip_file.extract(file_name)
 
-# Посчитать количество повторений букв и записать в словарь
 number_of_different_letters = {}
-
 
 number_letters_combined = 15
 with open(file_name, 'r', encoding='cp1251') as file:
@@ -29,10 +51,6 @@ with open(file_name, 'r', encoding='cp1251') as file:
                 number_of_different_letters[tmp_char] = {char: 1}
             tmp_char = tmp_char[1:] + char
 
-# pprint(number_of_different_letters)
-
-# Отсортировать массивы, на первое место в списке поставить наиболее часто встречающиеся буквы
-
 totals_chars = {}
 sorted_statistics = {}
 all_keys = []
@@ -44,13 +62,6 @@ for key, value in number_of_different_letters.items():
         sorted_statistics[key].append([value_inner, key_inner])
         sorted_statistics[key].sort(reverse=True)
     all_keys.append(key)
-
-
-# pprint(sorted_statistics)
-# pprint(totals_chars)
-
-
-# Генерировать на консоль слова
 
 N_chars = 10000
 printed = 0
@@ -71,4 +82,3 @@ while printed <= N_chars:
     print(char, end='')
     first_char = first_char[1:] + char
     printed += 1
-
