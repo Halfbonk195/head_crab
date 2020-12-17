@@ -20,19 +20,23 @@
 #
 # Упорядочивание по частоте - по убыванию. Ширину таблицы подберите по своему вкусу
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
-from pprint import pprint
 
 
 class Stats_letters():
 
-    def __init__(self):
+    def __init__(self, f_name):
         self.collector = {}
         self.sorted_collection = []
         self.quantity = 0
+        self.f_name = f_name
 
-    def collect(self, f_name):
+    def do_all_methods(self):
+        self.collect()
+        self.sort()
+        self.output()
 
-        with open(f_name, 'r', encoding='cp1251') as file:
+    def collect(self):
+        with open(self.f_name, 'r', encoding='cp1251') as file:
             for line in file:
                 for char in line:
                     if char.isalpha():
@@ -44,9 +48,7 @@ class Stats_letters():
                         continue
 
     def sort(self):
-        for key, value in self.collector.items():
-            self.sorted_collection.append([value, key])
-        self.sorted_collection.sort(reverse=True)
+        pass
 
     def output(self):
         print(f'+{"-" * 9}+{"-" * 9}+')
@@ -64,12 +66,46 @@ class Stats_letters():
         print(f'+{"-" * 9}+{"-" * 9}+')
 
 
+class Frequency(Stats_letters):
+
+    def sort(self):
+        for key, value in self.collector.items():
+            self.sorted_collection.append([value, key])
+        self.sorted_collection.sort(reverse=True)
+
+
+class Alphabet_increas(Stats_letters):
+
+    def sort(self):
+        for key, value in self.collector.items():
+            self.sorted_collection.append([key, value])
+        self.sorted_collection.sort()
+        tmp_collection = []
+        for key, value in self.sorted_collection:
+            tmp_collection.append([value, key])
+        self.sorted_collection = tmp_collection
+
+
+class Alphabet_decreas(Stats_letters):
+
+    def sort(self):
+        for key, value in self.collector.items():
+            self.sorted_collection.append([key, value])
+        self.sorted_collection.sort(reverse=True)
+        tmp_collection = []
+        for key, value in self.sorted_collection:
+            tmp_collection.append([value, key])
+        self.sorted_collection = tmp_collection
+
+
 file_name = 'voyna-i-mir.txt'
 
-stat_1 = Stats_letters()
-stat_1.collect(f_name=file_name)
-stat_1.sort()
-stat_1.output()
+stat_1 = Frequency(f_name=file_name)
+stat_2 = Alphabet_increas(f_name=file_name)
+stat_3 = Alphabet_decreas(f_name=file_name)
+stat_1.do_all_methods()
+stat_2.do_all_methods()
+stat_3.do_all_methods()
 
 # После выполнения первого этапа нужно сделать упорядочивание статистики
 #  - по частоте по возрастанию
