@@ -22,7 +22,7 @@
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
 
-class StatsLetters():
+class StatsLetters:
 
     def __init__(self, f_name):
         self.collector = {}
