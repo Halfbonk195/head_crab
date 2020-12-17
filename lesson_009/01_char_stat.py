@@ -22,7 +22,7 @@
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
 
-class Stats_letters():
+class StatsLetters():
 
     def __init__(self, f_name):
         self.collector = {}
@@ -66,7 +66,7 @@ class Stats_letters():
         print(f'+{"-" * 9}+{"-" * 9}+')
 
 
-class Frequency(Stats_letters):
+class Frequency(StatsLetters):
 
     def sort(self):
         for key, value in self.collector.items():
@@ -74,7 +74,7 @@ class Frequency(Stats_letters):
         self.sorted_collection.sort(reverse=True)
 
 
-class Alphabet_increas(Stats_letters):
+class AlphabetIncrease(StatsLetters):
 
     def sort(self):
         for key, value in self.collector.items():
@@ -86,7 +86,7 @@ class Alphabet_increas(Stats_letters):
         self.sorted_collection = tmp_collection
 
 
-class Alphabet_decreas(Stats_letters):
+class AlphabetDecrease(StatsLetters):
 
     def sort(self):
         for key, value in self.collector.items():
@@ -101,8 +101,8 @@ class Alphabet_decreas(Stats_letters):
 file_name = 'voyna-i-mir.txt'
 
 stat_1 = Frequency(f_name=file_name)
-stat_2 = Alphabet_increas(f_name=file_name)
-stat_3 = Alphabet_decreas(f_name=file_name)
+stat_2 = AlphabetIncrease(f_name=file_name)
+stat_3 = AlphabetDecrease(f_name=file_name)
 stat_1.do_all_methods()
 stat_2.do_all_methods()
 stat_3.do_all_methods()
