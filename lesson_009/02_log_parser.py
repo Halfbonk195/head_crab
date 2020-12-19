@@ -58,6 +58,10 @@ class LogParser:
             self.write_sorted_lines(time_past, new_line, sorted_mod_str)
             self.old_line = new_line
 
+        time_old_struct = time.strptime(self.old_line[0:19], "%Y-%m-%d %H:%M:%S")
+        time_old_str = time.strftime(sorted_mod_str, time_old_struct)
+        self.file_w.write(f'[{time_old_str}] {self.count_NOK}\n')
+
     def write_sorted_lines(self, time_past, new_line, sorted_mod_str):
         if self.current_time is None:
             self.current_time = time_past
@@ -130,12 +134,12 @@ class LogParserYear(LogParser):
 
 
 file_name_r = 'events.txt'
-log_parser_min = LogParserMin(file_name_r)
-log_parser_hour = LogParserHour(file_name_r)
+# log_parser_min = LogParserMin(file_name_r)
+# log_parser_hour = LogParserHour(file_name_r)
 log_parser_mon = LogParserMonth(file_name_r)
 log_parser_year = LogParserYear(file_name_r)
-log_parser_min.action()
-log_parser_hour.action()
+# log_parser_min.action()
+# log_parser_hour.action()
 log_parser_mon.action()
 log_parser_year.action()
 
