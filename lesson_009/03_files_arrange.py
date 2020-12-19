@@ -79,7 +79,10 @@ class SortMyPhoto:
     def copy_files(self):
         """Создает директории год/месяц и копирует по ним файлы"""
 
+        print(f'Всего лет: {self.sorted_files_dict.keys()}')
         for year, other_value in self.sorted_files_dict.items():
+            print(f'Началось копирование {year} года')
+
             for mon, file_names in other_value.items():
                 dir_path = os.path.join(self.dir_write, year, mon)
                 os.makedirs(dir_path, exist_ok=True)
@@ -89,8 +92,8 @@ class SortMyPhoto:
                     shutil.copy2(src_path, dir_path)
 
 
-path_for_scan = 'icons'
-path_for_copy = 'icons_by_year'
+path_for_scan = 'C:/Users/halfb/Desktop/Test'
+path_for_copy = 'C:/Users/halfb/Desktop/Test/sort'
 
 sort_my_files = SortMyPhoto(path_for_scan, path_for_copy)
 sort_my_files.scan_dir()
