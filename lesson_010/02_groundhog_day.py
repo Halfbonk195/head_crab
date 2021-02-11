@@ -3,13 +3,57 @@
 # День сурка
 #
 # Напишите функцию one_day() которая возвращает количество кармы от 1 до 7
-from random import randint
+from random import randint, choice
 
-ENLIGHTENMENT_CARMA_LEVEL = 77
+from termcolor import cprint
+
+ENLIGHTENMENT_CARMA_LEVEL = 777
+
+
+class IamGodError(Exception):
+
+    def __str__(self):
+        return 'Ошибка бога'
+
+
+class DrunkError(Exception):
+
+    def __str__(self):
+        return 'Жестко напился'
+
+
+class CarCrashError(Exception):
+
+    def __str__(self):
+        return 'Попал в автокатастрофу'
+
+
+class GluttonyError(Exception):
+
+    def __str__(self):
+        return 'Объелся и лопнул'
+
+
+class DepressionError(Exception):
+
+    def __str__(self):
+        return 'Впал в депрессию'
+
+
+class SuicideError(Exception):
+
+    def __str__(self):
+        return 'Покончил жизнь самоубийством'
+
+
+_list_of_exceptions = [IamGodError(), DrunkError(), CarCrashError(), GluttonyError(), DepressionError(), SuicideError()]
 
 
 def one_day():
     carma = randint(1, 7)
+    random_number = randint(1, 13)
+    if random_number == 1:
+        raise choice(_list_of_exceptions)
     return carma
 
 
@@ -17,8 +61,13 @@ sum_carma = 0
 day = 0
 while True:
     day += 1
-    sum_carma += one_day()
-    print(f'День {day}, количество кармы {sum_carma}')
+    cprint(f'------------День {day}------------', color='green')
+    try:
+        sum_carma += one_day()
+        print(f'Количество кармы {sum_carma}')
+    except Exception as exc:
+        cprint(f'Произошло: {exc}', color='red')
+
     if sum_carma >= ENLIGHTENMENT_CARMA_LEVEL:
         break
 
@@ -36,8 +85,5 @@ while True:
 # При создании собственных исключений максимально использовать функциональность
 # базовых встроенных исключений.
 
-7
-
-# TODO здесь ваш код
 
 # https://goo.gl/JnsDqu
