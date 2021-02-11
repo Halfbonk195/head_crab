@@ -67,6 +67,8 @@ while True:
         print(f'Количество кармы {sum_carma}')
     except Exception as exc:
         cprint(f'Произошло: {exc}', color='red')
+        with open('log.txt', 'a', encoding='utf-8') as ff:
+            ff.write(f'День {day:<5} {exc}\n')
 
     if sum_carma >= ENLIGHTENMENT_CARMA_LEVEL:
         break
