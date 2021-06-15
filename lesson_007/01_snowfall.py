@@ -23,7 +23,7 @@ class Snowflake:
         sd.clear_screen()
 
     def move(self):
-        self.x += sd.random_number(-5, 10)
+        self.x += sd.random_number(-8, 10)
         self.y -= sd.random_number(5, 10)
 
     def draw(self):
@@ -55,7 +55,7 @@ def append_flakes(count):
 
 
 # шаг 2: создать снегопад - список объектов Снежинка в отдельном списке, обработку примерно так:
-N = 20
+N = 22
 flakes = get_flakes(count=N)  # создать список снежинок
 while True:
     flakes[0].clear_previous_picture()
