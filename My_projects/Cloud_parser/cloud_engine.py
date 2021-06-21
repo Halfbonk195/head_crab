@@ -1,5 +1,5 @@
 import requests
-
+import json
 
 class Loginbot:
     """Парсит сайты с логином и паролем"""
@@ -19,4 +19,12 @@ class Loginbot:
             s.post(self.login_url, data=self.data, headers=self.headers)
 
             answer = s.get(url).text
+            return answer
+
+    def put(self, url, data):
+        with requests.Session() as s:
+            s.get(self.login_url)
+            s.post(self.login_url, data=self.data, headers=self.headers)
+
+            answer = s.put(url, json=data)
             return answer

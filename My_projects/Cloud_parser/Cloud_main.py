@@ -1,7 +1,8 @@
 import cloud_engine as engine
 
 _login_url = "https://login.1c.ru/login"
-_answer_url = 'https://backup.1c.ru/web-api/archives?page=0&size=10'
+_answer_url = 'https://backup.1c.ru/web-api/archives?page=0&size=100'
+_del_copy_url = 'https://backup.1c.ru/web-api/archives'
 _data = {"inviteCode": '',
          "inviteType": '',
          "username": None,
@@ -13,7 +14,7 @@ _data = {"inviteCode": '',
          "submit": 'Войти'}
 
 
-def spliter(date, name):
+def spliter(date, name, bd_id):
     split_date = date.split(':')
     split_date = split_date[1][1:11]
     split_date = split_date.split('-')
@@ -22,10 +23,40 @@ def spliter(date, name):
     split_name = name.split(':')
     split_name = split_name[1][1:] + split_name[2][:-1]
 
-    return split_date, split_name
+    bd_id = bd_id.split(',')
+    bd_id = bd_id[0].split(':')
+    bd_id = bd_id[-1]
+
+    return split_date, split_name, bd_id[1:-1]
 
 
-print("*****Вас приветствует Cloud parser v0.98 betta, которая покажет Вам все копии в ОА и их дату создания*****")
+def del_copy(bd_id):
+    while True:
+        count_copy = input('Введите количество копий, которые вы хотите удалить (удаляются начиная с конца):')
+
+        if not count_copy.isnumeric():
+            print('Ты что издеваешься, введи, пожалуйста цифру - попробуй еще раз!\n')
+            continue
+
+        count_copy = int(count_copy)
+        if count_copy == 0 or count_copy >= len(bd_id):
+            print('Вы ввели неверное количество копий, попробуйте еще раз!\n')
+            continue
+
+        else:
+            temp_list_bd_id = []
+            j = 0
+            while j < count_copy:
+                temp_list_bd_id.append(bd_id[len(bd_id) - 1 - j])
+                j += 1
+            data_put = {'ids': temp_list_bd_id}
+            loginbot.put(_del_copy_url, data=data_put)
+            print(f'Успешно удалено {count_copy} старых копий!')
+            break
+
+
+print("*****Вас приветствует Cloud parser v1.00, которая покажет Вам все копии в ОА и их дату создания*****")
+print("Все права защищены Антипин Т.В.")
 print("Введите логин и пароль от portal.1c.ru:")
 
 while True:
@@ -43,6 +74,7 @@ while True:
             split_answer = answer.split(',')
             dates_bd = [el for el in split_answer if "timeConfigDate" in el]
             names_bd = [el for el in split_answer if "ibPath" in el]
+            id_bd_list = [el for el in split_answer if "id" in el]
 
             if len(dates_bd) != 0:
                 massage_1 = 'Расположение базы'
@@ -50,8 +82,10 @@ while True:
                 len_bd = len(names_bd[0])
                 print(f'\n| {massage_1:^{len_bd}}|{massage_2:^15}|')
                 i = 0
+                bd_id = []
                 for elems in dates_bd:
-                    date, name = spliter(elems, names_bd[i])
+                    date, name, bd_id_tmp = spliter(elems, names_bd[i], id_bd_list[i])
+                    bd_id.append(bd_id_tmp)
                     print(f'| {name:<{len_bd}}|{date:^15}|')
                     i += 1
 
@@ -61,17 +95,22 @@ while True:
                     new_elems = elems.split(':')
                     total_space[total_space.index(elems)] = new_elems[1]
 
-                print(f'\nИспользовано: {total_space[0]} МБ, Всего: {total_space[1][:-1]} ГБ')
+                print(f'\nИспользовано: {total_space[0]} МБ, Всего: {total_space[1][:-1]} ГБ\n')
+
                 if int(total_space[0][:-2]) > 15000:
-                    print(
-                        'Может пора почистить копии? (Данная возможность появится в этой проге в ближайших обновлениях)')
+                    print('Может пора почистить копии? ******БУДЬ ОСТОРОЖЕН******')
+
+                usr_answer = input(
+                    'Если хотите удалить копии введите yes (если не хотите, введите любой другой символ):')
+                if usr_answer.lower() == 'yes':
+                    del_copy(bd_id)
             else:
                 print("Нет копий!")
 
     except IndexError as ecx:
         print("Нет копий!")
 
-    end = input("\nНажмите 'q' для выхода, любую другую клавишу для продолжения ")
-    if "q" == end.lower():
+    end = input("\nВведите 'q' для выхода, любую другую клавишу для продолжения ")
+    if "q" == end.lower() or "й" == end.lower():
         break
     print('--------------------------------------------------')
