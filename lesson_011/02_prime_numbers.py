@@ -2,6 +2,7 @@
 
 
 # Есть функция генерации списка простых чисел
+import time
 
 
 def get_prime_numbers(n):
@@ -49,24 +50,35 @@ class PrimeNumbers:
 
 
 prime_number_iterator = PrimeNumbers(n=10000)
+started_at = time.time()
 for number in prime_number_iterator:
     if number is not None:
         print(number)
+ended_at = time.time()
+elapsed = round(ended_at - started_at, 4)
+print(f'Функция работала {elapsed} секунд(ы)')
 
 
-# TODO после подтверждения части 1 преподователем, можно делать
 # Часть 2
 # Теперь нужно создать генератор, который выдает последовательность простых чисел до n
 # Распечатать все простые числа до 10000 в столбик
-
-
 def prime_numbers_generator(n):
-    pass
-    # TODO здесь ваш код
+    prime_numbers = []
+    for number in range(2, n + 1):
+        for prime in prime_numbers:
+            if number % prime == 0:
+                break
+        else:
+            prime_numbers.append(number)
+            yield number
 
-# for number in prime_numbers_generator(n=10000):
-#     print(number)
 
+started_at = time.time()
+for number in prime_numbers_generator(n=10000):
+    print(number)
+ended_at = time.time()
+elapsed = round(ended_at - started_at, 4)
+print(f'Функция работала {elapsed} секунд(ы)')
 
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
