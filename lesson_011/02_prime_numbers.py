@@ -15,11 +15,58 @@ def get_prime_numbers(n):
             prime_numbers.append(number)
     return prime_numbers
 
+
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
 # который выдает последовательность простых чисел до n
 #
 # Распечатать все простые числа до 10000 в столбик
+
+
+_n = 10000
+
+
+def polynom(poly):
+    ylop = 0
+    i = poly
+    while i >= 1:
+        ylop = ylop * 10 + i % 10
+        i = i // 10
+
+    if poly == ylop:
+        return poly
+    else:
+        return None
+
+
+def lucky_number(num):
+    if num < 10:
+        return num
+
+    list_for_numbers = []
+
+    for elem in str(num):
+        list_for_numbers.append(int(elem))
+
+    lenth_of_number = len(list_for_numbers)
+
+    n = lenth_of_number // 2
+    sum_1, sum_2 = 0, 0
+
+    for i in range(0, n):
+        sum_1 += list_for_numbers[i]
+
+    if lenth_of_number % 2:
+        for i in range(n + 1, lenth_of_number):
+            sum_2 += list_for_numbers[i]
+    else:
+        for i in range(n, lenth_of_number):
+            sum_2 += list_for_numbers[i]
+
+    if sum_1 == sum_2:
+        return num
+    else:
+        return None
 
 
 class PrimeNumbers:
@@ -32,6 +79,7 @@ class PrimeNumbers:
 
     def __iter__(self):
         self.i = 0
+        # self.prime_numbers = []
         return self
 
     def __next__(self):
@@ -49,14 +97,18 @@ class PrimeNumbers:
                     return number
 
 
-prime_number_iterator = PrimeNumbers(n=10000)
-started_at = time.time()
+prime_number_iterator = PrimeNumbers(n=_n)
 for number in prime_number_iterator:
     if number is not None:
         print(number)
-ended_at = time.time()
-elapsed = round(ended_at - started_at, 4)
-print(f'Функция работала {elapsed} секунд(ы)')
+
+result_poly = filter(polynom, prime_number_iterator.prime_numbers)
+print(f'Список полиндромов для n = {_n}:')
+print(list(result_poly))
+
+result_lucky = filter(lucky_number, prime_number_iterator.prime_numbers)
+print(f'Список счастливых чисел для n = {_n}:')
+print(list(result_lucky))
 
 
 # Часть 2
@@ -73,12 +125,16 @@ def prime_numbers_generator(n):
             yield number
 
 
-started_at = time.time()
-for number in prime_numbers_generator(n=10000):
+for number in prime_numbers_generator(n=_n):
     print(number)
-ended_at = time.time()
-elapsed = round(ended_at - started_at, 4)
-print(f'Функция работала {elapsed} секунд(ы)')
+
+result_poly = filter(polynom, prime_numbers_generator(n=_n))
+print(f'Список полиндромов для n = {_n}:')
+print(list(result_poly))
+
+result_lucky = filter(lucky_number, prime_numbers_generator(n=_n))
+print(f'Список счастливых чисел для n = {_n}:')
+print(list(result_lucky))
 
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
