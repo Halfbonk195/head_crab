@@ -22,13 +22,36 @@ def get_prime_numbers(n):
 
 
 class PrimeNumbers:
-    pass
-    # TODO здесь ваш код
+    """Итератор последовательности простых чисел количеством N"""
+
+    def __init__(self, n):
+        self.i = 0
+        self.n = n
+        self.prime_numbers = []
+
+    def __iter__(self):
+        self.i = 0
+        return self
+
+    def __next__(self):
+        self.i += 1
+        if self.i > 1:
+            if self.i > self.n:
+                raise StopIteration()
+
+            for number in range(self.i, self.i + 1):
+                for prime in self.prime_numbers:
+                    if number % prime == 0:
+                        break
+                else:
+                    self.prime_numbers.append(number)
+                    return number
 
 
 prime_number_iterator = PrimeNumbers(n=10000)
 for number in prime_number_iterator:
-    print(number)
+    if number is not None:
+        print(number)
 
 
 # TODO после подтверждения части 1 преподователем, можно делать
@@ -41,9 +64,8 @@ def prime_numbers_generator(n):
     pass
     # TODO здесь ваш код
 
-
-for number in prime_numbers_generator(n=10000):
-    print(number)
+# for number in prime_numbers_generator(n=10000):
+#     print(number)
 
 
 # Часть 3
