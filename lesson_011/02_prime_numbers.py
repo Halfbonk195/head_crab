@@ -34,9 +34,9 @@ def polynom(poly):
         i = i // 10
 
     if poly == ylop:
-        return poly
+        return True
     else:
-        return None
+        return False
 
 
 def lucky_number(num):
@@ -64,9 +64,9 @@ def lucky_number(num):
             sum_2 += list_for_numbers[i]
 
     if sum_1 == sum_2:
-        return num
+        return True
     else:
-        return None
+        return False
 
 
 class PrimeNumbers:
