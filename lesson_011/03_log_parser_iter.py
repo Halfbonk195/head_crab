@@ -26,13 +26,14 @@ class LogParser:
         self.end = None
 
     def __iter__(self):
-        self.open_file(self.file_name_r, 'r')
+        self.file_r = open(self.file_name_r, mode='r')
         self.event_count = 0
         self.end = None
         return self
 
     def __next__(self):
         if self.end:
+            self.file_r.close()
             raise StopIteration()
 
         while True:
@@ -68,9 +69,6 @@ class LogParser:
         new_line_event = line[29:-1]
 
         return new_line_date, new_line_event
-
-    def open_file(self, name, mod):
-        self.file_r = open(name, mode=mod)
 
 
 file_name_r = 'events.txt'
