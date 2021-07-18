@@ -59,6 +59,60 @@ print("*****Вас приветствует Cloud parser v1.01, которая �
 print("Все права защищены Антипин Т.В.")
 print("Введите логин и пароль от portal.1c.ru:")
 
+
+def main_method():
+    if _login_url in answer:
+        print("Вы ввели неверный логин или пароль, попробуйте еще раз...")
+    else:
+        split_answer = answer.split(',')
+        dates_bd = [el for el in split_answer if "timeConfigDate" in el]
+        names_bd = [el for el in split_answer if "ibPath" in el]
+        id_bd_list = [el for el in split_answer if "id" in el]
+
+        if len(dates_bd) != 0:
+            len_bd = 0
+            i = 0
+            bd_id = []
+            bd_names = []
+
+            for elems in dates_bd:
+                date, name, bd_id_tmp = spliter(elems, names_bd[i], id_bd_list[i])
+                bd_id.append(bd_id_tmp)
+                bd_names.append([name, date])
+
+                if len(name) > len_bd:
+                    len_bd = len(name)
+                i += 1
+            print_table(bd_names, len_bd)
+
+            total_space = loginbot.parser('https://backup.1c.ru/web-api/space')
+            total_space = total_space.split(',')
+            for elems in total_space:
+                new_elems = elems.split(':')
+                total_space[total_space.index(elems)] = new_elems[1]
+
+            print(f'\nИспользовано: {total_space[0]} МБ, Всего: {total_space[1][:-1]} ГБ\n')
+
+            if int(total_space[0][:-2]) > 15000:
+                print('Может пора почистить копии? ******БУДЬ ОСТОРОЖЕН******')
+
+            usr_answer = input('Если хотите удалить копии введите yes (если не хотите, введите любой другой символ):')
+            if usr_answer.lower() == 'yes':
+                del_copy(bd_id)
+        else:
+            print("Нет копий!")
+
+
+def print_table(bd_names, len_bd):
+    massage_1 = 'Расположение базы'
+    massage_2 = 'Дата создания'
+    massage_3 = '|' + '-' * (len_bd + 2) + '|' + '-' * 15 + '|'
+    print(f'\n| {massage_1:^{len_bd + 1}}|{massage_2:^15}|')
+    print(massage_3)
+    for items in bd_names:
+        print(f'| {items[0]:<{len_bd + 1}}|{items[1]:^15}|')
+
+
 while True:
     login = input('Введите логин: ')
     password = input('Введите пароль: ')
@@ -68,55 +122,7 @@ while True:
     answer = loginbot.parser(_answer_url)
 
     try:
-        if _login_url in answer:
-            print("Вы ввели неверный логин или пароль, попробуйте еще раз...")
-        else:
-            split_answer = answer.split(',')
-            dates_bd = [el for el in split_answer if "timeConfigDate" in el]
-            names_bd = [el for el in split_answer if "ibPath" in el]
-            id_bd_list = [el for el in split_answer if "id" in el]
-
-            if len(dates_bd) != 0:
-
-                len_bd = 0
-                i = 0
-                bd_id = []
-                bd_names = []
-
-                for elems in dates_bd:
-                    date, name, bd_id_tmp = spliter(elems, names_bd[i], id_bd_list[i])
-                    bd_id.append(bd_id_tmp)
-                    bd_names.append([name, date])
-
-                    if len(name) > len_bd:
-                        len_bd = len(name)
-                    i += 1
-                massage_1 = 'Расположение базы'
-                massage_2 = 'Дата создания'
-                massage_3 = '|' + '-' * (len_bd + 2) + '|' + '-' * 15 + '|'
-                print(f'\n| {massage_1:^{len_bd + 1}}|{massage_2:^15}|')
-                print(massage_3)
-                for items in bd_names:
-                    print(f'| {items[0]:<{len_bd + 1}}|{items[1]:^15}|')
-
-                total_space = loginbot.parser('https://backup.1c.ru/web-api/space')
-                total_space = total_space.split(',')
-                for elems in total_space:
-                    new_elems = elems.split(':')
-                    total_space[total_space.index(elems)] = new_elems[1]
-
-                print(f'\nИспользовано: {total_space[0]} МБ, Всего: {total_space[1][:-1]} ГБ\n')
-
-                if int(total_space[0][:-2]) > 15000:
-                    print('Может пора почистить копии? ******БУДЬ ОСТОРОЖЕН******')
-
-                usr_answer = input(
-                    'Если хотите удалить копии введите yes (если не хотите, введите любой другой символ):')
-                if usr_answer.lower() == 'yes':
-                    del_copy(bd_id)
-            else:
-                print("Нет копий!")
-
+        main_method()
     except IndexError as ecx:
         print("Нет копий!")
 
