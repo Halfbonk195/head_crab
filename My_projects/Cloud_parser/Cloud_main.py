@@ -77,17 +77,27 @@ while True:
             id_bd_list = [el for el in split_answer if "id" in el]
 
             if len(dates_bd) != 0:
-                massage_1 = 'Расположение базы'
-                massage_2 = 'Дата создания'
-                len_bd = len(names_bd[0])
-                print(f'\n| {massage_1:^{len_bd}}|{massage_2:^15}|')
+
+                len_bd = 0
                 i = 0
                 bd_id = []
+                bd_names = []
+
                 for elems in dates_bd:
                     date, name, bd_id_tmp = spliter(elems, names_bd[i], id_bd_list[i])
                     bd_id.append(bd_id_tmp)
-                    print(f'| {name:<{len_bd}}|{date:^15}|')
+                    bd_names.append([name, date])
+
+                    if len(name) > len_bd:
+                        len_bd = len(name)
                     i += 1
+                massage_1 = 'Расположение базы'
+                massage_2 = 'Дата создания'
+                massage_3 = '|' + '-' * (len_bd + 2) + '|' + '-' * 15 + '|'
+                print(f'\n| {massage_1:^{len_bd + 1}}|{massage_2:^15}|')
+                print(massage_3)
+                for items in bd_names:
+                    print(f'| {items[0]:<{len_bd + 1}}|{items[1]:^15}|')
 
                 total_space = loginbot.parser('https://backup.1c.ru/web-api/space')
                 total_space = total_space.split(',')
