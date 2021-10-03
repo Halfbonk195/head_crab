@@ -10,11 +10,11 @@ class LinkExtractor(HTMLParser):
         self.links = []
 
     def handle_starttag(self, tag, attrs):
-        if tag not in ('link', 'script',):
+        if tag not in ('link', 'script'):
             return
         attrs = dict(attrs)
         if tag == 'link':
-            if 'rel' in attrs and attrs['rel'] == 'stylesheet':
+            if 'type' in attrs and attrs['type'] == 'text/css':
                 link = self._refine(attrs['href'])
                 self.links.append(link)
         elif tag == 'script':
