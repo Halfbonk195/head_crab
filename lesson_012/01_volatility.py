@@ -72,5 +72,45 @@
 #
 #     def run(self):
 #         <обработка данных>
+import os
+from collections import defaultdict
 
-# TODO написать код в однопоточном/однопроцессорном стиле
+
+class Volatility():
+
+    def __init__(self, path):
+        self.path = path
+        self.files_list = []
+        self.result_dict = dict()
+
+    def run(self):
+        for file in os.listdir(self.path):
+            norm_path = os.path.join(self.path, file)
+            data = self.read_file(norm_path)
+
+            for secid, prices in data.items():
+                prices = [float(x) for x in prices]
+                min_price = min(prices)
+                max_price = max(prices)
+                average_price = (max_price + min_price) / 2
+                volatility = ((max_price - min_price) / average_price) * 100
+                self.result_dict[secid] = volatility
+        print(self.result_dict)
+
+    def read_file(self, path):
+        with open(path, mode='r') as current_file:
+            next(current_file)
+            data = defaultdict(list)
+
+            for line in current_file:
+                line = line[:-1]
+                line = line.split(',')
+
+                data[line[0]].append(line[2])
+            return data
+
+
+path = 'trades'
+
+volatility_class = Volatility(path=path)
+volatility_class.run()
