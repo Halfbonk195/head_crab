@@ -76,12 +76,14 @@ import os
 from collections import defaultdict
 
 
-class Volatility():
+class Volatility:
 
-    def __init__(self, path):
+    def __init__(self, path, list_tuple_nonzero, list_tuple_zero):
         self.path = path
         self.files_list = []
         self.result_dict = dict()
+        self.list_tuple_nonzero = list_tuple_nonzero
+        self.list_tuple_zero = list_tuple_zero
 
     def run(self):
         for file in os.listdir(self.path):
@@ -95,7 +97,18 @@ class Volatility():
                 average_price = (max_price + min_price) / 2
                 volatility = ((max_price - min_price) / average_price) * 100
                 self.result_dict[secid] = volatility
-        print(self.result_dict)
+        self.sort()
+
+    def sort(self):
+        sorted_list = list(self.result_dict.items())
+        sorted_list.sort(key=lambda i: i[1])
+
+        for elem in sorted_list:
+            if elem[1] < 0.001:
+                self.list_tuple_zero.append(elem)
+                continue
+            self.list_tuple_nonzero.append(elem)
+        sorted_list_zero.sort(key=lambda i: i[0])
 
     def read_file(self, path):
         with open(path, mode='r') as current_file:
@@ -110,7 +123,23 @@ class Volatility():
             return data
 
 
-path = 'trades'
+def print_result():
+    print('Максимальная волотильность:')
+    for i in range(3):
+        elems = sorted_list_nonzero[-i - 1]
+        print(f'    {elems[0]} - {elems[1]:.2f}')
+    print('Минимальная волотильность:')
+    for i in range(3):
+        elems = sorted_list_nonzero[2 - i]
+        print(f'    {elems[0]} - {elems[1]:.2f}')
+    print('Нулевая волотильность:')
+    for elem in sorted_list_zero:
+        print(elem[0], end=', ')
 
-volatility_class = Volatility(path=path)
+
+path = 'trades'
+sorted_list_nonzero = []
+sorted_list_zero = []
+volatility_class = Volatility(path=path, list_tuple_nonzero=sorted_list_nonzero, list_tuple_zero=sorted_list_zero)
 volatility_class.run()
+print_result()
