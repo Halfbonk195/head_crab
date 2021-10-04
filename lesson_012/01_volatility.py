@@ -73,8 +73,9 @@
 #     def run(self):
 #         <обработка данных>
 import os
-import time
 from collections import defaultdict
+
+from lesson_012.utils import time_track
 
 
 class Volatility:
@@ -122,20 +123,6 @@ class Volatility:
 
                 data[line[0]].append(line[2])
             return data
-
-
-def time_track(func):
-    def surrogate(*args, **kwargs):
-        started_at = time.time()
-
-        result = func(*args, **kwargs)
-
-        ended_at = time.time()
-        elapsed = round(ended_at - started_at, 4)
-        print(f'Функция работала {elapsed} секунд(ы)')
-        return result
-
-    return surrogate
 
 
 def print_result(list_nonzero, list_zero):
