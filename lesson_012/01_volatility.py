@@ -73,6 +73,7 @@
 #     def run(self):
 #         <обработка данных>
 import os
+import time
 from collections import defaultdict
 
 
@@ -108,7 +109,7 @@ class Volatility:
                 self.list_tuple_zero.append(elem)
                 continue
             self.list_tuple_nonzero.append(elem)
-        sorted_list_zero.sort(key=lambda i: i[0])
+        self.list_tuple_zero.sort(key=lambda i: i[0])
 
     def read_file(self, path):
         with open(path, mode='r') as current_file:
@@ -123,23 +124,43 @@ class Volatility:
             return data
 
 
-def print_result():
+def time_track(func):
+    def surrogate(*args, **kwargs):
+        started_at = time.time()
+
+        result = func(*args, **kwargs)
+
+        ended_at = time.time()
+        elapsed = round(ended_at - started_at, 4)
+        print(f'Функция работала {elapsed} секунд(ы)')
+        return result
+
+    return surrogate
+
+
+def print_result(list_nonzero, list_zero):
     print('Максимальная волотильность:')
     for i in range(3):
-        elems = sorted_list_nonzero[-i - 1]
+        elems = list_nonzero[-i - 1]
         print(f'    {elems[0]} - {elems[1]:.2f}')
     print('Минимальная волотильность:')
     for i in range(3):
-        elems = sorted_list_nonzero[2 - i]
+        elems = list_nonzero[2 - i]
         print(f'    {elems[0]} - {elems[1]:.2f}')
     print('Нулевая волотильность:')
-    for elem in sorted_list_zero:
+    for elem in list_zero:
         print(elem[0], end=', ')
 
 
-path = 'trades'
-sorted_list_nonzero = []
-sorted_list_zero = []
-volatility_class = Volatility(path=path, list_tuple_nonzero=sorted_list_nonzero, list_tuple_zero=sorted_list_zero)
-volatility_class.run()
-print_result()
+@time_track
+def main():
+    path = 'trades'
+    sorted_list_nonzero = []
+    sorted_list_zero = []
+    volatility_class = Volatility(path=path, list_tuple_nonzero=sorted_list_nonzero, list_tuple_zero=sorted_list_zero)
+    volatility_class.run()
+    print_result(sorted_list_nonzero, sorted_list_zero)
+
+
+if __name__ == '__main__':
+    main()
