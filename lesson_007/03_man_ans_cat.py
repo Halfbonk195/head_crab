@@ -191,7 +191,7 @@ for cat in cats:
     rand_citizen = choice(citizens)
     rand_citizen.pick_up_cat(cat=cat)
 
-for day in range(1, 365):
+for day in range(1, 720):
     print('================ день {} =================='.format(day))
     for citizen in citizens:
         citizen.act()
