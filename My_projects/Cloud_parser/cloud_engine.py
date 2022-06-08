@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 class Loginbot:
     """Парсит сайты с логином и паролем"""
 

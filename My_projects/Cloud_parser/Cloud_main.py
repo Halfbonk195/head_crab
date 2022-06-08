@@ -21,8 +21,10 @@ def spliter(date, name, bd_id):
     split_date = split_date[2] + '.' + split_date[1] + '.' + split_date[0]
 
     split_name = name.split(':')
-    split_name = split_name[1][1:] + split_name[2][:-1]
-
+    if len(split_name) > 2:
+        split_name = split_name[1][1:] + split_name[2][:-1]
+    else:
+        split_name = split_name[1][3:-1]
     bd_id = bd_id.split(',')
     bd_id = bd_id[0].split(':')
     bd_id = bd_id[-1]
