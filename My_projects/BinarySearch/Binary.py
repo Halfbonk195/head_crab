@@ -1,19 +1,30 @@
 from random import randint
 
-iteration = 0
+
 continue_game = True
 answers = ['да', 'ДА', 'Да', 'Yes', 'yes', 'YES']
 print('Программа загадывает число от 1 до N')
 
 while continue_game:
-    N = int(input('Введите число N: '))
-    answer_number = randint(1, N + 1)
+    N = input('Введите число N: ')
+    if N.isdigit():
+        N = int(N)
+    else:
+        print('Вы ввели не число:')
+        continue
 
+    answer_number = randint(1, N)
+    iteration = 0
     while True:
         iteration += 1
         print(f'\nПопытка №{iteration}')
 
-        in_number = int(input('Введите предполагаемое число: '))
+        in_number = input('Введите предполагаемое число: ')
+        if in_number.isnumeric():
+            in_number = int(in_number)
+        else:
+            print('Вы ввели не число:')
+            break
 
         if in_number > answer_number:
             print(f'Загаданное число меньше, чем {in_number}')
