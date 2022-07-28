@@ -6,7 +6,7 @@ _diff_numeric = {}
 _solution_linear_eqs = []
 
 def find_partial_diff(f1, f2):
-    """Находит частные производные по 2-м функциям и записывает их в словарь"""
+    """Находит частные производные по 2ум функциям и записывает их в словарь"""
     global _diff_dict
     _diff_dict = {}
 
@@ -23,7 +23,7 @@ def find_partial_diff(f1, f2):
 
 def find_partial_diff_numeric(x_num, y_num):
     """Конвертирует символьные производные в норальные функции
-       и находит численное значение в точке (x_num, y_num)
+       и находит численное  значение в точке (x_num, y_num)
        записывает в _diff_numeric"""
 
     global _diff_numeric
