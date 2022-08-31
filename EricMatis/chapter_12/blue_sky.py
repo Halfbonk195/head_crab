@@ -3,7 +3,7 @@ import sys
 import pygame
 
 from settings_sky import Settings
-
+from character import Character
 
 class BlueSky:
     """Отрисовывает окно pygame с синим фоном"""
@@ -13,6 +13,7 @@ class BlueSky:
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption('Blue sky')
+        self.character = Character(self)
 
     def run_sky(self):
         while True:
@@ -21,6 +22,7 @@ class BlueSky:
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
+        self.character.blitme()
         pygame.display.flip()
 
     def _check_events(self):
