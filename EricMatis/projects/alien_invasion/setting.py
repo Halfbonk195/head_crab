@@ -5,5 +5,5 @@ class Settings:
         """Инициализирует настройки игры"""
         # Параметры экрана
         self.screen_width = 1900
-        self.screen_height = 1000
+        self.screen_height = 990
         self.bg_color = (11, 62, 62)
