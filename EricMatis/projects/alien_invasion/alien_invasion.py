@@ -4,6 +4,7 @@ import pygame
 
 from setting import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 class AlienInvasion:
@@ -20,18 +21,25 @@ class AlienInvasion:
         pygame.display.set_caption('Alien Invasion')
 
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """Запуск основного цикла игры"""
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
             self._update_screen()
 
     def _update_screen(self):
         """Обновляет изображения на экране и отображает новый экран."""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         # Отображение последнего прорисованного экрана
         pygame.display.flip()
 
@@ -39,6 +47,7 @@ class AlienInvasion:
         """Обрабатывает нажатия клавиш и события мыши"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()
             # Движение корабля
             elif event.type == pygame.KEYDOWN:
@@ -59,8 +68,15 @@ class AlienInvasion:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
         elif event.key == pygame.K_q:
             sys.exit()
+
+    def _fire_bullet(self):
+        """Создание нового снаряда и включение его в группу bullets."""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
 
 if __name__ == '__main__':
