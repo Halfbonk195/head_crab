@@ -3,6 +3,11 @@ class Settings:
 
     def __init__(self):
         """Инициализирует настройки игры"""
+        # Настройки пришельцев
+        self.alien_speed = 1.0
+        self.fleet_drop_speed = 10
+        # fleet_direction = 1 обозначает движение вправо, а -1 - влево
+        self.fleet_direction = 1
         # Параметры экрана
         self.screen_width = 1900
         self.screen_height = 990
