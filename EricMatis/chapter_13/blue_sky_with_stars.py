@@ -5,6 +5,7 @@ import pygame
 from settings_sky import Settings
 from character import Character
 from stars import Star
+from random import randint
 
 class BlueSkyWithStars:
     """Отрисовывает окно pygame с синим фоном"""
@@ -28,12 +29,14 @@ class BlueSkyWithStars:
         """Создание набора звезд"""
         star = Star(self)
         star_width, star_height = star.rect.size
-        available_space_x = self.settings.screen_width - (2 * star_width)
-        number_stars_x = available_space_x // (2 * star_width)
+        available_space_x = self.settings.screen_width - 50
+        number_stars_x = available_space_x // star_width
+        number_stars_x = int(number_stars_x)
 
         character_height = self.character.rect.height
-        available_space_y = (self.settings.screen_height - (2 * star_height) - character_height)
+        available_space_y = (self.settings.screen_height - star_height - character_height)
         number_rows = available_space_y // star_height
+        number_rows = int(number_rows)
 
         for row_number in range(number_rows):
             for star_number in range(number_stars_x):
@@ -42,10 +45,16 @@ class BlueSkyWithStars:
     def _create_star(self, star_number, row_number):
         """Создание Звезды и размещение ее в ряду."""
         star = Star(self)
+        delta_star = randint(-60, -10)
+        rotation_star = randint(0, 360)
+
+        star.image = pygame.transform.scale(star.image, (star.rect.x + delta_star, star.rect.y + delta_star))
         star_width, star_height = star.rect.size
-        star.x = star_width + 2 * star_width * star_number
-        star.rect.x = star.x
-        star.rect.y = star_height + 2 * star_height * row_number
+        star.x = 50 + star_width * star_number
+        star.rect.x = star.x + randint(-50, 50)
+        star.rect.y = 50 + star_height * row_number + randint(-50, 50)
+        star.image = pygame.transform.rotate(star.image, rotation_star)
+
         self.stars.add(star)
 
     def _update_screen(self):
