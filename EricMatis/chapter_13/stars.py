@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-
+from random import choice
 
 class Star(Sprite):
     """Класс, представляющий одну звезду"""
@@ -11,7 +11,8 @@ class Star(Sprite):
         self.screen = ai_game.screen
 
         # Загрузка изображения пришельца и назначение атрибута rect.
-        self.image = pygame.image.load('images/star.png')
+        list_images = ['images/star.png', 'images/star_2.png']
+        self.image = pygame.image.load(choice(list_images))
         self.rect = self.image.get_rect()
 
         # Каждый новый пришелец появляется в левом верхнем углу экрана.
