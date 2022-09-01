@@ -11,7 +11,7 @@ class Star(Sprite):
         self.screen = ai_game.screen
 
         # Загрузка изображения пришельца и назначение атрибута rect.
-        self.image = pygame.image.load('images/alien_ship.png')
+        self.image = pygame.image.load('images/star.png')
         self.rect = self.image.get_rect()
 
         # Каждый новый пришелец появляется в левом верхнем углу экрана.
