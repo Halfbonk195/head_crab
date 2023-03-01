@@ -32,10 +32,10 @@ class Ship:
     def update(self):
         """Обновляет позицию корабля с учетом флага."""
         if self.moving_right:
-            self.rect.move_ip(self.game_settings.ship_speed, 0)
+            self.rect.move_ip(self.game_settings.ship_speed_factor, 0)
 
         if self.moving_left:
-            self.rect.move_ip(-self.game_settings.ship_speed, 0)
+            self.rect.move_ip(-self.game_settings.ship_speed_factor, 0)
 
         # Ограничение движения корабля в пределах экрана.
         self.rect.clamp_ip(self.screen_rect)

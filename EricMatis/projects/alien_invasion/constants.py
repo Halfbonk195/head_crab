@@ -6,19 +6,19 @@ COLOR_GREEN = (0, 255, 0)
 COLOR_LIME_GREEN = (50, 200, 100)
 
 # Параметры снаряда
-BULLET_SPEED = 1
+BULLET_SPEED = 2
 BULLET_WIDTH = 3
 BULLET_HEIGHT = 15
 BULLET_COLOR = COLOR_LEMON_YELLOW
-BULLETS_ALLOWED = 500  # Максимальное количество снарядов на экране
+BULLETS_ALLOWED = 3  # Максимальное количество снарядов на экране
 
-# Настройки пришельцев
+# Параметры пришельцев
 ALIEN_SPEED = 1.0
-DROP_SPEED = 100
+DROP_SPEED = 10
 
 # Параметры корабля
 SHIP_IMAGE_PATH = 'images/space_ship.png'
-SHIP_SPEED = 2.5
+SHIP_SPEED = 2
 SHIP_LIMIT = 3  # Максимальное количество кораблей за игру
 
 # Параметры экрана
@@ -32,3 +32,6 @@ BUTTON_HEIGHT = 50
 BUTTON_COLOR = COLOR_LIME_GREEN
 TEXT_COLOR = COLOR_WHITE
 TEXT_PT = 60
+
+# Параметры игры
+SPEEDUP_SCALE = 1.1
