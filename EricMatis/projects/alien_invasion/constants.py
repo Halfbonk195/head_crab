@@ -14,7 +14,7 @@ BULLETS_ALLOWED = 500  # Максимальное количество снар�
 
 # Настройки пришельцев
 ALIEN_SPEED = 1.0
-DROP_SPEED = 10
+DROP_SPEED = 100
 
 # Параметры корабля
 SHIP_IMAGE_PATH = 'images/space_ship.png'
