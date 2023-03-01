@@ -112,6 +112,7 @@ class AlienInvasion:
 
         else:
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _create_fleet(self):
         """Создание флота вторжения."""
@@ -214,6 +215,9 @@ class AlienInvasion:
             # Создание нового флота и размещение корабля в центре.
             self._create_fleet()
             self.ship.center_ship()
+
+            # Указатель мыши скрывается.
+            pygame.mouse.set_visible(False)
 
     def _fire_bullet(self):
         """Создание нового снаряда и включение его в группу bullets."""
