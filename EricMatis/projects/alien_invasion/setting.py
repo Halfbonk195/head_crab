@@ -1,12 +1,18 @@
+from constants import ALIEN_SPEED, DROP_SPEED
+from constants import SHIP_SPEED, SHIP_LIMIT
+from constants import BULLET_SPEED, BULLET_WIDTH, BULLET_HEIGHT, BULLET_COLOR, BULLETS_ALLOWED
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BG_COLOR
+
+
 class ScreenSettings:
     """Класс для хранения настроек экрана игры Alien Invasion."""
 
-    def __init__(self, screen_width=1600, screen_height=900):
+    def __init__(self, screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT):
         """Инициализирует настройки экрана"""
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen_size = (screen_width, screen_height)
-        self.bg_color = (11, 62, 62)
+        self.bg_color = BG_COLOR
 
 
 class GameSettings:
@@ -15,17 +21,17 @@ class GameSettings:
     def __init__(self):
         """Инициализирует настройки игры"""
         # Настройки пришельцев
-        self.alien_speed = 1.0
-        self.fleet_drop_speed = 10
+        self.alien_speed = ALIEN_SPEED
+        self.fleet_drop_speed = DROP_SPEED
         self.fleet_direction = 1  # fleet_direction = 1 обозначает движение вправо, а -1 - влево
 
         # Параметры корабля
-        self.ship_speed = 2.5
-        self.ship_limit = 3  # Максимальное количество кораблей за игру
+        self.ship_speed = SHIP_SPEED
+        self.ship_limit = SHIP_LIMIT  # Максимальное количество кораблей за игру
 
         # Параметры снаряда
-        self.bullet_speed = 1
-        self.bullet_width = 3
-        self.bullet_height = 15
-        self.bullet_color = (238, 241, 34)
-        self.bullets_allowed = 500  # Максимальное количество снарядов на экране
+        self.bullet_speed = BULLET_SPEED
+        self.bullet_width = BULLET_WIDTH
+        self.bullet_height = BULLET_HEIGHT
+        self.bullet_color = BULLET_COLOR
+        self.bullets_allowed = BULLETS_ALLOWED  # Максимальное количество снарядов на экране
