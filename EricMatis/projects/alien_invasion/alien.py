@@ -9,7 +9,7 @@ class Alien(Sprite):
         """Инициализирует пришельца и задает его начальную позицию."""
         super().__init__()
         self.screen = ai_game.screen
-        self.settings = ai_game.settings
+        self.game_settings = ai_game.game_settings
 
         # Загрузка изображения пришельца и назначение атрибута rect.
         self.image = pygame.image.load('images/alien_ship.png')
@@ -30,5 +30,5 @@ class Alien(Sprite):
 
     def update(self):
         """Перемещает пришельца влево или вправо."""
-        self.x += (self.settings.alien_speed * self.settings.fleet_direction)
+        self.x += (self.game_settings.alien_speed * self.game_settings.fleet_direction)
         self.rect.x = self.x

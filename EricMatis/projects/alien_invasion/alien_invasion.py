@@ -3,7 +3,7 @@ from time import sleep
 
 import pygame
 
-from setting import Settings
+from setting import ScreenSettings, GameSettings
 from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
@@ -16,11 +16,12 @@ class AlienInvasion:
     def __init__(self):
         """Инициализирует игру и создает игровые ресурсы"""
         pygame.init()
-        self.settings = Settings()
+        self.screen_settings = ScreenSettings(screen_width=1500, screen_height=800)
+        self.game_settings = GameSettings()
 
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.settings.screen_width = self.screen.get_rect().width
-        self.settings.screen_height = self.screen.get_rect().height
+        self.screen = pygame.display.set_mode(self.screen_settings.screen_size)
+        self.screen_settings.screen_width = self.screen.get_rect().width
+        self.screen_settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption('Alien Invasion')
 
         # Создание экземпляра для хранения игровой статистики.
@@ -78,7 +79,7 @@ class AlienInvasion:
 
     def _update_screen(self):
         """Обновляет изображения на экране и отображает новый экран."""
-        self.screen.fill(self.settings.bg_color)
+        self.screen.fill(self.screen_settings.bg_color)
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
@@ -109,11 +110,11 @@ class AlienInvasion:
         # Интервал между соседними пришельцами равен ширине пришельца.
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
-        available_space_x = self.settings.screen_width - (2 * alien_width)
+        available_space_x = self.screen_settings.screen_width - (2 * alien_width)
         number_aliens_x = available_space_x // (2 * alien_width)
 
         ship_height = self.ship.rect.height
-        available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
+        available_space_y = (self.screen_settings.screen_height - (3 * alien_height) - ship_height)
         number_rows = available_space_y // (2 * alien_height)
 
         # Создание флота вторжения
@@ -149,8 +150,8 @@ class AlienInvasion:
     def _change_fleet_direction(self):
         """Опускает весь флот и меняет направление флота."""
         for alien in self.aliens.sprites():
-            alien.rect.y += self.settings.fleet_drop_speed
-        self.settings.fleet_direction *= -1
+            alien.rect.y += self.game_settings.fleet_drop_speed
+        self.game_settings.fleet_direction *= -1
 
     def _check_events(self):
         """Обрабатывает нажатия клавиш и события мыши"""
@@ -185,7 +186,7 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """Создание нового снаряда и включение его в группу bullets."""
-        if len(self.bullets) < self.settings.bullets_allowed:
+        if len(self.bullets) < self.game_settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
