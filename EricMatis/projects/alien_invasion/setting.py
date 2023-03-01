@@ -11,7 +11,7 @@ class ScreenSettings:
         """Инициализирует настройки экрана"""
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self.screen_size = (screen_width, screen_height)
+        self.screen_size = (self.screen_width, self.screen_height)
         self.bg_color = BG_COLOR
 
 

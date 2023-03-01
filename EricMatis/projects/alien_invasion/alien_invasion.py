@@ -190,34 +190,35 @@ class AlienInvasion:
     def _check_keydown_events(self, event):
         """Реагирует на нажатие клавиш."""
         if event.key == pygame.K_RIGHT:
-            # Переместить корабль вправо.
-            self.ship.moving_right = True
+            self.ship.moving_right = True  # Переместить корабль вправо.
         elif event.key == pygame.K_LEFT:
-            # Переместить корабль влево.
-            self.ship.moving_left = True
+            self.ship.moving_left = True   # Переместить корабль влево.
         elif event.key == pygame.K_SPACE:
-            self._fire_bullet()
+            self._fire_bullet()            # Выпустить пулю.
+        elif event.key == pygame.K_p:
+            self._start_game()             # Начать новую игру.
         elif event.key == pygame.K_q:
-            sys.exit()
+            sys.exit()                     # Выход из игры.
 
     def _check_play_button(self, mouse_pos):
-        """Запускает новую игру при нажатии кнопки Play."""
+        """Проверяет нажатие кнопки Play."""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
-            # Сброс игровой статистики.
-            self.stats.reset_stats()
-            self.stats.game_active = True
+            self._start_game()
 
-            # Очистка списков пришельцев и снарядов.
-            self.aliens.empty()
-            self.bullets.empty()
-
-            # Создание нового флота и размещение корабля в центре.
-            self._create_fleet()
-            self.ship.center_ship()
-
-            # Указатель мыши скрывается.
-            pygame.mouse.set_visible(False)
+    def _start_game(self):
+        """Запускает новую игру"""
+        # Сброс игровой статистики.
+        self.stats.reset_stats()
+        self.stats.game_active = True
+        # Очистка списков пришельцев и снарядов.
+        self.aliens.empty()
+        self.bullets.empty()
+        # Создание нового флота и размещение корабля в центре.
+        self._create_fleet()
+        self.ship.center_ship()
+        # Указатель мыши скрывается.
+        pygame.mouse.set_visible(False)
 
     def _fire_bullet(self):
         """Создание нового снаряда и включение его в группу bullets."""
