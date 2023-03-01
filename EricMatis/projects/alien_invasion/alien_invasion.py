@@ -5,6 +5,7 @@ import pygame
 
 from setting import ScreenSettings, GameSettings
 from game_stats import GameStats
+from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -32,6 +33,9 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
+
+        # Создание кнопки Play.
+        self.play_button = Button(self, "Play")
 
     def run_game(self):
         """Запуск основного цикла игры"""
@@ -84,6 +88,11 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+
+        # Кнопка Play отображается в том случае, если игра неактивна.
+        if not self.stats.game_active:
+            self.play_button.draw_button()
+
         # Отображение последнего прорисованного экрана
         pygame.display.flip()
 
@@ -165,6 +174,10 @@ class AlienInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            # Движение мыши
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def _check_keyup_events(self, event):
         """Реагирует на отпускание клавиш."""
@@ -186,11 +199,17 @@ class AlienInvasion:
         elif event.key == pygame.K_q:
             sys.exit()
 
+    def _check_play_button(self, mouse_pos):
+        """Запускает новую игру при нажатии кнопки Play."""
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.game_active = True
+
     def _fire_bullet(self):
         """Создание нового снаряда и включение его в группу bullets."""
-        if len(self.bullets) < self.game_settings.bullets_allowed:
-            new_bullet = Bullet(self)
-            self.bullets.add(new_bullet)
+        if self.stats.game_active:
+            if len(self.bullets) < self.game_settings.bullets_allowed:
+                new_bullet = Bullet(self)
+                self.bullets.add(new_bullet)
 
 
 if __name__ == '__main__':
