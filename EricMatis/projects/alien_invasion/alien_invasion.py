@@ -100,8 +100,6 @@ class AlienInvasion:
             self._create_fleet()
             self.ship.center_ship()
 
-            # Пауза.
-            sleep(0.5)
         else:
             self.stats.game_active = False
 
@@ -133,7 +131,7 @@ class AlienInvasion:
         self.aliens.add(alien)
 
     def _check_aliens_bottom(self):
-        """Проверяте, добрались ли пришельцы до нижнего края экрана."""
+        """Проверяет, добрались ли пришельцы до нижнего края экрана."""
         screen_rect = self.screen.get_rect()
         for alien in self.aliens.sprites():
             if alien.rect.bottom >= screen_rect.bottom:
@@ -158,7 +156,6 @@ class AlienInvasion:
         """Обрабатывает нажатия клавиш и события мыши"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
                 sys.exit()
             # Движение корабля
             elif event.type == pygame.KEYDOWN:
@@ -167,22 +164,23 @@ class AlienInvasion:
                 self._check_keyup_events(event)
 
     def _check_keyup_events(self, event):
-        """Реагирует на отпускание клавиш"""
+        """Реагирует на отпускание клавиш."""
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
     def _check_keydown_events(self, event):
-        """Реагирует на нажатие клавиш"""
+        """Реагирует на нажатие клавиш."""
         if event.key == pygame.K_RIGHT:
+            # Переместить корабль вправо.
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
+            # Переместить корабль влево.
             self.ship.moving_left = True
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
         elif event.key == pygame.K_q:
-            pygame.quit()
             sys.exit()
 
     def _fire_bullet(self):
