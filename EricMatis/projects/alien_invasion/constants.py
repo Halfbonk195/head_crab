@@ -10,6 +10,7 @@ ALIEN_SPEED = 1.0
 DROP_SPEED = 10
 
 # Параметры корабля
+SHIP_IMAGE_PATH = 'images/space_ship.png'
 SHIP_SPEED = 2.5
 SHIP_LIMIT = 3  # Максимальное количество кораблей за игру
 
