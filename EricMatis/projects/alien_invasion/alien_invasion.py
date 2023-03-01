@@ -118,18 +118,20 @@ class AlienInvasion:
         number_rows = available_space_y // (2 * alien_height)
 
         # Создание флота вторжения
+        aliens = pygame.sprite.Group()
         for row_number in range(number_rows):
             for alien_number in range(number_aliens_x):
-                self._create_alien(alien_number, row_number)
+                self._create_alien(alien_number, row_number, aliens)
+        self.aliens = aliens
 
-    def _create_alien(self, alien_number, row_number):
+    def _create_alien(self, alien_number, row_number, aliens):
         """Создание пришельца и размещение его в ряду."""
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x = alien.x
         alien.rect.y = alien_height + 2 * alien_height * row_number
-        self.aliens.add(alien)
+        aliens.add(alien)
 
     def _check_aliens_bottom(self):
         """Проверяет, добрались ли пришельцы до нижнего края экрана."""
