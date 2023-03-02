@@ -1,3 +1,5 @@
+import os
+
 # Цвета
 COLOR_LEMON_YELLOW = (238, 241, 34)
 COLOR_DARK_TEAL = (11, 62, 62)
@@ -14,11 +16,14 @@ BULLET_COLOR = COLOR_LEMON_YELLOW
 BULLETS_ALLOWED = 3  # Максимальное количество снарядов на экране
 
 # Параметры пришельцев
+ALIEN_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'images', 'alien_ship.png')
 ALIEN_SPEED = 1.0
 DROP_SPEED = 10
 
 # Параметры корабля
-SHIP_IMAGE_PATH = 'images/space_ship.png'
+# SHIP_IMAGE_PATH = 'images/space_ship.png'
+
+SHIP_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'images', 'space_ship.png')
 SHIP_SPEED = 2
 SHIP_LIMIT = 3  # Максимальное количество кораблей за игру
 
