@@ -3,12 +3,13 @@ from time import sleep
 
 import pygame
 
-from setting import ScreenSettings, GameSettings
+from setting import ScreenSettings, GameSettings, MenuSettings
 from game_stats import GameStats
 from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+import constants as const
 
 
 class AlienInvasion:
@@ -17,7 +18,13 @@ class AlienInvasion:
     def __init__(self):
         """Инициализирует игру и создает игровые ресурсы"""
         pygame.init()
-        self.screen_settings = ScreenSettings(screen_width=1500, screen_height=800)
+
+        screen_info = pygame.display.Info()
+        width = screen_info.current_w - 100
+        height = screen_info.current_h - 100
+
+        self.screen_settings = ScreenSettings(screen_width=width, screen_height=height)
+        self.menu_settings = MenuSettings(screen_width=width, screen_height=height)
         self.game_settings = GameSettings()
 
         self.screen = pygame.display.set_mode(self.screen_settings.screen_size)
@@ -31,11 +38,9 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
+        self.buttons_main_menu = {}
 
         self._create_fleet()
-
-        # Создание кнопки Play.
-        self.play_button = Button(self, "Play")
 
     def run_game(self):
         """Запуск основного цикла игры"""
@@ -48,6 +53,63 @@ class AlienInvasion:
                 self._update_aliens()
 
             self._update_screen()
+
+    def _update_screen(self):
+        """Обновляет изображения на экране и отображает новый экран."""
+        self.screen.fill(self.screen_settings.bg_color)
+        self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+        self.aliens.draw(self.screen)
+
+        # Кнопка Play отображается в том случае, если игра неактивна.
+        if not self.stats.game_active:
+            self._create_main_menu()
+
+        # Отображение последнего прорисованного экрана
+        pygame.display.flip()
+
+    def _create_main_menu(self):
+        self._create_buttons_dicts()
+
+        if self.stats.menu_state == 'Menu':
+            for button in self.buttons_main_menu.values():
+                button.draw_button()
+        elif self.stats.menu_state == 'Settings':
+            for button in self.buttons_settings.values():
+                button.draw_button()
+            self.button_back.draw_button()
+        elif self.stats.menu_state == 'Resolution':
+            self.button_back.draw_button()
+        elif self.stats.menu_state == 'Difficulty':
+            for button in self.buttons_difficulty.values():
+                button.draw_button()
+            self.button_back.draw_button()
+
+    def _create_buttons_dicts(self):
+        """Создание словарей всех кнопок в игре"""
+        coordinates = self.menu_settings.buttons_coord
+        self.buttons_main_menu = {
+            'Play': Button(self, 'Play', coordinates['Play']),
+            'Settings': Button(self, 'Settings', coordinates['Settings'], const.COLOR_GRAY),
+            'Exit': Button(self, 'Exit', coordinates['Exit'], const.COLOR_GRAY),
+        }
+
+        self.buttons_settings = {
+            'Difficulty': Button(self, 'Difficulty', coordinates['Difficulty'], const.COLOR_GRAY),
+            'Resolution': Button(self, 'Resolution', coordinates['Resolution'], const.COLOR_GRAY),
+        }
+
+        self.buttons_difficulty = {
+            'Easy': Button(self, 'Easy', coordinates['Easy'], const.COLOR_GRAY),
+            'Normal': Button(self, 'Normal', coordinates['Normal'], const.COLOR_GRAY),
+            'Hard': Button(self, 'Hard', coordinates['Hard'], const.COLOR_GRAY),
+            'Impossible': Button(self, 'Impossible', coordinates['Impossible'], const.COLOR_GRAY),
+            self.stats.difficulty: Button(self, self.stats.difficulty, coordinates[self.stats.difficulty],
+                                          const.COLOR_DARK_GRAY)
+        }
+
+        self.button_back = Button(self, 'Back', self.menu_settings.buttons_coord['Back'], const.COLOR_DARK_GRAY)
 
     def _update_bullets(self):
         """Обновляет позиции снарядов и уничтожает старые снаряды."""
@@ -81,21 +143,6 @@ class AlienInvasion:
 
         # Проверить, добрались ли пришельцы до нижнего края экрана.
         self._check_aliens_bottom()
-
-    def _update_screen(self):
-        """Обновляет изображения на экране и отображает новый экран."""
-        self.screen.fill(self.screen_settings.bg_color)
-        self.ship.blitme()
-        for bullet in self.bullets.sprites():
-            bullet.draw_bullet()
-        self.aliens.draw(self.screen)
-
-        # Кнопка Play отображается в том случае, если игра неактивна.
-        if not self.stats.game_active:
-            self.play_button.draw_button()
-
-        # Отображение последнего прорисованного экрана
-        pygame.display.flip()
 
     def _ship_hit(self):
         """Обрабатывает столкновение коробля с пришельцем"""
@@ -179,7 +226,8 @@ class AlienInvasion:
             # Движение мыши
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                self._check_play_button(mouse_pos)
+                # self._check_play_button(mouse_pos)
+                self._check_button_press(mouse_pos)
 
     def _check_keyup_events(self, event):
         """Реагирует на отпускание клавиш."""
@@ -201,12 +249,83 @@ class AlienInvasion:
         elif event.key == pygame.K_q:
             sys.exit()                     # Выход из игры.
 
-    def _check_play_button(self, mouse_pos):
-        """Проверяет нажатие кнопки Play."""
-        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
-        if button_clicked and not self.stats.game_active:
-            # Сброс игровых настроек.
+    def _check_button_press(self, mouse_pos):
+        """Проверяет нажатие кнопок в меню"""
+        if not self.stats.game_active:
+            if self.stats.menu_state == 'Menu':  # Главное меню
+                self._handle_main_menu_click(mouse_pos)
+
+            elif self.stats.menu_state == 'Settings':  # Меню настроек
+                self._handle_settings_click(mouse_pos)
+
+            elif self.stats.menu_state == 'Resolution':  # Меню разрешения экрана
+                self._handle_resolution_click(mouse_pos)
+
+            elif self.stats.menu_state == 'Difficulty':  # Меню изменения уровня сложности
+                self._handle_difficulty_click(mouse_pos)
+
+    def _handle_difficulty_click(self, mouse_pos):
+        """Обработка нажатия кнопок в меню сложности игры"""
+        buttons = self.buttons_difficulty
+        # Нажатие кнопки Back.
+        if self.button_back.rect.collidepoint(mouse_pos):
+            self.stats.menu_state = 'Settings'
+            self._update_screen()
+        # Нажатие кнопки Easy
+        elif buttons['Easy'].rect.collidepoint(mouse_pos):
+            self._change_difficulty_state('Easy')
+        # Нажатие кнопки Normal
+        elif buttons['Normal'].rect.collidepoint(mouse_pos):
+            self._change_difficulty_state('Normal')
+        # Нажатие кнопки Hard
+        elif buttons['Hard'].rect.collidepoint(mouse_pos):
+            self._change_difficulty_state('Hard')
+        # Нажатие кнопки Impossible
+        elif buttons['Impossible'].rect.collidepoint(mouse_pos):
+            self._change_difficulty_state('Impossible')
+
+    def _handle_resolution_click(self, mouse_pos):
+        """Обработка нажатия кнопок в меню изменения разрешения экрана"""
+        # Нажатие кнопки Back.
+        if self.button_back.rect.collidepoint(mouse_pos):
+            self._change_menu_state('Settings')
+
+    def _handle_settings_click(self, mouse_pos):
+        """Обработка нажатия кнопок в меню настроек"""
+        buttons = self.buttons_settings
+        # Нажатие кнопки Back.
+        if self.button_back.rect.collidepoint(mouse_pos):
+            self._change_menu_state('Menu')
+        # Нажатие кнопки Resolution
+        elif buttons['Resolution'].rect.collidepoint(mouse_pos):
+            self._change_menu_state('Resolution')
+        # Нажатие кнопки Difficulty
+        elif buttons['Difficulty'].rect.collidepoint(mouse_pos):
+            self._change_menu_state('Difficulty')
+
+    def _handle_main_menu_click(self, mouse_pos):
+        """Обработка нажатия кнопок в главном меню"""
+        buttons = self.buttons_main_menu
+        # Нажатие кнопки Play
+        if buttons['Play'].rect.collidepoint(mouse_pos):
             self._start_game()
+        # Нажатие кнопки Settings
+        elif buttons['Settings'].rect.collidepoint(mouse_pos):
+            self._change_menu_state('Settings')
+        # Выход из игры
+        elif buttons['Exit'].rect.collidepoint(mouse_pos):
+            sys.exit()
+
+    def _change_menu_state(self, state_menu):
+        """Изменяет состояние меню"""
+        self.stats.menu_state = state_menu
+        self._update_screen()
+
+    def _change_difficulty_state(self, difficulty_state):
+        """Изменяет уровень сложности игры"""
+        self.stats.difficulty = difficulty_state
+        self.game_settings.speedup_scale = const.SPEEDUP_SCALE[difficulty_state]
+        self._update_screen()
 
     def _start_game(self):
         """Запускает новую игру"""
@@ -219,7 +338,7 @@ class AlienInvasion:
         # Создание нового флота и размещение корабля в центре.
         self._create_fleet()
         self.ship.center_ship()
-        # Привидение динамических параметров к значениям по умолчанию
+        # Привидение динамических параметров к значениям по-умолчанию
         self.game_settings.initialize_dynamic_settings()
         # Указатель мыши скрывается.
         pygame.mouse.set_visible(False)
