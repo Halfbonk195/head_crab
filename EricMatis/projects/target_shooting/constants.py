@@ -14,10 +14,10 @@ BG_COLOR = COLOR_DARK_TEAL
 TARGET_COLOR = COLOR_GREEN
 TARGET_WIDTH = 30
 TARGET_HEIGHT = 150
-TARGET_SPEED = 0.5
+TARGET_SPEED = 0.2
 
 # Параметры снаряда
-BULLET_SPEED = 1
+BULLET_SPEED = 1.7
 BULLET_WIDTH = 15
 BULLET_HEIGHT = 3
 BULLET_COLOR = COLOR_LEMON_YELLOW
@@ -25,7 +25,7 @@ BULLETS_ALLOWED = 3  # Максимальное количество снаря�
 
 # Параметры корабля
 SHIP_IMAGE_PATH = 'images/space_ship.png'
-SHIP_SPEED = 2.5
+SHIP_SPEED = 1.5
 SHOTS_LIMIT = 3  # Максимальное количество промахов за игру
 
 # Параметры кнопки
@@ -34,3 +34,10 @@ BUTTON_HEIGHT = 50
 BUTTON_COLOR = COLOR_LIME_GREEN
 TEXT_COLOR = COLOR_WHITE
 TEXT_PT = 60
+
+# Параметры игры
+SPEEDUP_SCALE = {
+    'SHIP': 1.02,
+    'BULLET': 1.06,
+    'TARGET': 1.4,
+}

@@ -205,6 +205,7 @@ class AlienInvasion:
         """Проверяет нажатие кнопки Play."""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
+            # Сброс игровых настроек.
             self._start_game()
 
     def _start_game(self):
@@ -218,6 +219,8 @@ class AlienInvasion:
         # Создание нового флота и размещение корабля в центре.
         self._create_fleet()
         self.ship.center_ship()
+        # Привидение динамических параметров к значениям по умолчанию
+        self.game_settings.initialize_dynamic_settings()
         # Указатель мыши скрывается.
         pygame.mouse.set_visible(False)
 

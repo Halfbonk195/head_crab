@@ -69,6 +69,7 @@ class TargetShooting:
             if bullet.rect.colliderect(self.target):
                 # Проверка столкновения с мишенью
                 self.bullets.remove(bullet)
+                self.game_settings.increase_speed()
                 collisions += 1
 
             elif bullet.rect.left >= self.screen_settings.screen_width:
@@ -141,6 +142,8 @@ class TargetShooting:
         # Создание новой мишени и размещение корабля в центре.
         self.target = Target(self)
         self.ship.center_ship()
+        # Привидение динамических параметров к значениям по умолчанию
+        self.game_settings.initialize_dynamic_settings()
         # Указатель мыши скрывается.
         pygame.mouse.set_visible(False)
 
