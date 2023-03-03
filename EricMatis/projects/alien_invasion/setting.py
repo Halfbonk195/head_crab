@@ -30,7 +30,9 @@ class GameSettings:
         self.bullets_allowed = const.BULLETS_ALLOWED  # Максимальное количество снарядов на экране
 
         # Темп ускорения игры
-        self.speedup_scale = const.SPEEDUP_SCALE['Normal']
+        self.alien_speedup_scale = const.SPEEDUP_SCALE['alien']['Normal']
+        self.ship_speedup_scale = const.SPEEDUP_SCALE['ship']['Normal']
+        self.bullet_speedup_scale = const.SPEEDUP_SCALE['bullet']['Normal']
 
         self.initialize_dynamic_settings()
 
@@ -43,9 +45,9 @@ class GameSettings:
 
     def increase_speed(self):
         """Увеличивает настройки скорости."""
-        self.ship_speed_factor *= self.speedup_scale
-        self.bullet_speed_factor *= self.speedup_scale
-        self.alien_speed_factor *= self.speedup_scale
+        self.ship_speed_factor *= self.ship_speedup_scale
+        self.bullet_speed_factor *= self.bullet_speedup_scale
+        self.alien_speed_factor *= self.alien_speedup_scale
 
 
 class MenuSettings:
@@ -56,28 +58,33 @@ class MenuSettings:
         self.buttons_coord = {}
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self._button_layout_calculation()
 
-    def _button_layout_calculation(self):
-        delta_y = self.screen_height // 8
-        delta_x = self.screen_width // 8
-        center = {
-            'x': self.screen_width // 2,
-            'y': self.screen_height // 2,
-        }
+        self.delta_x, self.delta_y = self.screen_width // 8, self.screen_height // 8
+        self.center_x, self.center_y = self.screen_width // 2, self.screen_height // 2
 
-        self.buttons_coord = {
-            'Play': (center['x'], center['y'] - delta_y // 2),
-            'Settings': (center['x'], center['y'] + delta_y // 2),
-            'Exit': (center['x'], center['y'] + 3 * delta_y),
+        self._calculate_main_menu_button_coordinates()
+        self._calculate_settings_button_coordinates()
+        self._calculate_difficulty_button_coordinates()
+        self._calculate_other_button_coordinates()
 
-            'Resolution': (center['x'], center['y'] - delta_y // 2),
-            'Difficulty': (center['x'], center['y'] + delta_y // 2),
+    def _calculate_main_menu_button_coordinates(self):
+        """Вычисляет координаты кнопок главного меню"""
+        self.buttons_coord['play_button'] = (self.center_x, self.center_y - self.delta_y // 2)
+        self.buttons_coord['settings_button'] = (self.center_x, self.center_y + self.delta_y // 2)
+        self.buttons_coord['exit_button'] = (self.center_x, self.center_y + 3 * self.delta_y)
 
-            'Easy': (center['x'], center['y'] - 3 * delta_y // 2),
-            'Normal': (center['x'], center['y'] - delta_y // 2),
-            'Hard': (center['x'], center['y'] + delta_y // 2),
-            'Impossible': (center['x'], center['y'] + 3 * delta_y // 2),
+    def _calculate_settings_button_coordinates(self):
+        """Вычисляет координаты кнопок меню настроек"""
+        self.buttons_coord['resolution_button'] = (self.center_x, self.center_y - self.delta_y // 2)
+        self.buttons_coord['difficulty_button'] = (self.center_x, self.center_y + self.delta_y // 2)
 
-            'Back': (center['x'] - 3 * delta_x, center['y'] - 3 * delta_y),
-        }
+    def _calculate_difficulty_button_coordinates(self):
+        """Вычисляет координаты кнопок настроек сложности"""
+        self.buttons_coord['easy_button'] = (self.center_x, self.center_y - 3 * self.delta_y // 2)
+        self.buttons_coord['normal_button'] = (self.center_x, self.center_y - self.delta_y // 2)
+        self.buttons_coord['hard_button'] = (self.center_x, self.center_y + self.delta_y // 2)
+        self.buttons_coord['impossible_button'] = (self.center_x, self.center_y + 3 * self.delta_y // 2)
+
+    def _calculate_other_button_coordinates(self):
+        """Вычисляет координаты вспомогательных кнопок меню"""
+        self.buttons_coord['back_button'] = (self.center_x - 3 * self.delta_x, self.center_y - 3 * self.delta_y)

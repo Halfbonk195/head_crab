@@ -8,7 +8,7 @@ class GameStats:
         self.reset_stats()
         # Игра Alien Invasion запускается в неактивном состоянии.
         self.game_active = False
-        self.menu_state = 'Menu'
+        self.menu_state = 'main_menu'
         self.difficulty = 'Normal'
 
     def reset_stats(self):

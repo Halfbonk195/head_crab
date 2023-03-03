@@ -72,44 +72,50 @@ class AlienInvasion:
     def _create_main_menu(self):
         self._create_buttons_dicts()
 
-        if self.stats.menu_state == 'Menu':
+        if self.stats.menu_state == 'main_menu':
             for button in self.buttons_main_menu.values():
                 button.draw_button()
-        elif self.stats.menu_state == 'Settings':
+        elif self.stats.menu_state == 'settings_menu':
             for button in self.buttons_settings.values():
                 button.draw_button()
-            self.button_back.draw_button()
-        elif self.stats.menu_state == 'Resolution':
-            self.button_back.draw_button()
-        elif self.stats.menu_state == 'Difficulty':
+            self.back_button.draw_button()
+        elif self.stats.menu_state == 'resolution_menu':
+            self.back_button.draw_button()
+        elif self.stats.menu_state == 'difficulty_menu':
             for button in self.buttons_difficulty.values():
                 button.draw_button()
-            self.button_back.draw_button()
+            self.back_button.draw_button()
 
     def _create_buttons_dicts(self):
         """Создание словарей всех кнопок в игре"""
         coordinates = self.menu_settings.buttons_coord
+
+        # Создание кнопок для главного меню
         self.buttons_main_menu = {
-            'Play': Button(self, 'Play', coordinates['Play']),
-            'Settings': Button(self, 'Settings', coordinates['Settings'], const.COLOR_GRAY),
-            'Exit': Button(self, 'Exit', coordinates['Exit'], const.COLOR_GRAY),
+            'play_button': Button(self, 'Play', coordinates['play_button']),
+            'settings_button': Button(self, 'Settings', coordinates['settings_button'], const.COLOR_GRAY),
+            'exit_button': Button(self, 'Exit', coordinates['exit_button'], const.COLOR_GRAY),
         }
 
+        # Создание кнопок для меню настроек.
         self.buttons_settings = {
-            'Difficulty': Button(self, 'Difficulty', coordinates['Difficulty'], const.COLOR_GRAY),
-            'Resolution': Button(self, 'Resolution', coordinates['Resolution'], const.COLOR_GRAY),
+            'difficulty_button': Button(self, 'Difficulty', coordinates['difficulty_button'], const.COLOR_GRAY),
+            'resolution_button': Button(self, 'Resolution', coordinates['resolution_button'], const.COLOR_GRAY),
         }
 
+        # Создание кнопок для уровней сложности, выделяем цветом текущий уровень сложности.
+        current_difficulty_button = f'{self.stats.difficulty.lower()}_button'
         self.buttons_difficulty = {
-            'Easy': Button(self, 'Easy', coordinates['Easy'], const.COLOR_GRAY),
-            'Normal': Button(self, 'Normal', coordinates['Normal'], const.COLOR_GRAY),
-            'Hard': Button(self, 'Hard', coordinates['Hard'], const.COLOR_GRAY),
-            'Impossible': Button(self, 'Impossible', coordinates['Impossible'], const.COLOR_GRAY),
-            self.stats.difficulty: Button(self, self.stats.difficulty, coordinates[self.stats.difficulty],
-                                          const.COLOR_DARK_GRAY)
+            'easy_button': Button(self, 'Easy', coordinates['easy_button'], const.COLOR_GRAY),
+            'normal_button': Button(self, 'Normal', coordinates['normal_button'], const.COLOR_GRAY),
+            'hard_button': Button(self, 'Hard', coordinates['hard_button'], const.COLOR_GRAY),
+            'impossible_button': Button(self, 'Impossible', coordinates['impossible_button'], const.COLOR_GRAY),
+            current_difficulty_button: Button(self, self.stats.difficulty, coordinates[current_difficulty_button],
+                                              const.COLOR_DARK_GRAY)
         }
 
-        self.button_back = Button(self, 'Back', self.menu_settings.buttons_coord['Back'], const.COLOR_DARK_GRAY)
+        # Создание вспомогательных кнопок для меню.
+        self.back_button = Button(self, 'Back', self.menu_settings.buttons_coord['back_button'], const.COLOR_DARK_GRAY)
 
     def _update_bullets(self):
         """Обновляет позиции снарядов и уничтожает старые снаряды."""
@@ -241,79 +247,79 @@ class AlienInvasion:
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True  # Переместить корабль вправо.
         elif event.key == pygame.K_LEFT:
-            self.ship.moving_left = True   # Переместить корабль влево.
+            self.ship.moving_left = True  # Переместить корабль влево.
         elif event.key == pygame.K_SPACE:
-            self._fire_bullet()            # Выпустить пулю.
+            self._fire_bullet()  # Выпустить пулю.
         elif event.key == pygame.K_p:
-            self._start_game()             # Начать новую игру.
+            self._start_game()  # Начать новую игру.
         elif event.key == pygame.K_q:
-            sys.exit()                     # Выход из игры.
+            sys.exit()  # Выход из игры.
 
     def _check_button_press(self, mouse_pos):
         """Проверяет нажатие кнопок в меню"""
         if not self.stats.game_active:
-            if self.stats.menu_state == 'Menu':  # Главное меню
+            if self.stats.menu_state == 'main_menu':  # Главное меню
                 self._handle_main_menu_click(mouse_pos)
 
-            elif self.stats.menu_state == 'Settings':  # Меню настроек
+            elif self.stats.menu_state == 'settings_menu':  # Меню настроек
                 self._handle_settings_click(mouse_pos)
 
-            elif self.stats.menu_state == 'Resolution':  # Меню разрешения экрана
+            elif self.stats.menu_state == 'resolution_menu':  # Меню разрешения экрана
                 self._handle_resolution_click(mouse_pos)
 
-            elif self.stats.menu_state == 'Difficulty':  # Меню изменения уровня сложности
+            elif self.stats.menu_state == 'difficulty_menu':  # Меню изменения уровня сложности
                 self._handle_difficulty_click(mouse_pos)
 
     def _handle_difficulty_click(self, mouse_pos):
         """Обработка нажатия кнопок в меню сложности игры"""
         buttons = self.buttons_difficulty
         # Нажатие кнопки Back.
-        if self.button_back.rect.collidepoint(mouse_pos):
-            self.stats.menu_state = 'Settings'
+        if self.back_button.rect.collidepoint(mouse_pos):
+            self.stats.menu_state = 'settings_menu'
             self._update_screen()
         # Нажатие кнопки Easy
-        elif buttons['Easy'].rect.collidepoint(mouse_pos):
+        elif buttons['easy_button'].rect.collidepoint(mouse_pos):
             self._change_difficulty_state('Easy')
         # Нажатие кнопки Normal
-        elif buttons['Normal'].rect.collidepoint(mouse_pos):
+        elif buttons['normal_button'].rect.collidepoint(mouse_pos):
             self._change_difficulty_state('Normal')
         # Нажатие кнопки Hard
-        elif buttons['Hard'].rect.collidepoint(mouse_pos):
+        elif buttons['hard_button'].rect.collidepoint(mouse_pos):
             self._change_difficulty_state('Hard')
         # Нажатие кнопки Impossible
-        elif buttons['Impossible'].rect.collidepoint(mouse_pos):
+        elif buttons['impossible_button'].rect.collidepoint(mouse_pos):
             self._change_difficulty_state('Impossible')
 
     def _handle_resolution_click(self, mouse_pos):
         """Обработка нажатия кнопок в меню изменения разрешения экрана"""
         # Нажатие кнопки Back.
-        if self.button_back.rect.collidepoint(mouse_pos):
-            self._change_menu_state('Settings')
+        if self.back_button.rect.collidepoint(mouse_pos):
+            self._change_menu_state('settings_menu')
 
     def _handle_settings_click(self, mouse_pos):
         """Обработка нажатия кнопок в меню настроек"""
         buttons = self.buttons_settings
         # Нажатие кнопки Back.
-        if self.button_back.rect.collidepoint(mouse_pos):
-            self._change_menu_state('Menu')
+        if self.back_button.rect.collidepoint(mouse_pos):
+            self._change_menu_state('main_menu')
         # Нажатие кнопки Resolution
-        elif buttons['Resolution'].rect.collidepoint(mouse_pos):
-            self._change_menu_state('Resolution')
+        elif buttons['resolution_button'].rect.collidepoint(mouse_pos):
+            self._change_menu_state('resolution_menu')
         # Нажатие кнопки Difficulty
-        elif buttons['Difficulty'].rect.collidepoint(mouse_pos):
-            self._change_menu_state('Difficulty')
+        elif buttons['difficulty_button'].rect.collidepoint(mouse_pos):
+            self._change_menu_state('difficulty_menu')
 
     def _handle_main_menu_click(self, mouse_pos):
         """Обработка нажатия кнопок в главном меню"""
         buttons = self.buttons_main_menu
         # Нажатие кнопки Play
-        if buttons['Play'].rect.collidepoint(mouse_pos):
+        if buttons['play_button'].rect.collidepoint(mouse_pos):
             self._start_game()
         # Нажатие кнопки Settings
-        elif buttons['Settings'].rect.collidepoint(mouse_pos):
-            self._change_menu_state('Settings')
+        elif buttons['settings_button'].rect.collidepoint(mouse_pos):
+            self._change_menu_state('settings_menu')
         # Выход из игры
-        elif buttons['Exit'].rect.collidepoint(mouse_pos):
+        elif buttons['exit_button'].rect.collidepoint(mouse_pos):
             sys.exit()
 
     def _change_menu_state(self, state_menu):
@@ -324,7 +330,9 @@ class AlienInvasion:
     def _change_difficulty_state(self, difficulty_state):
         """Изменяет уровень сложности игры"""
         self.stats.difficulty = difficulty_state
-        self.game_settings.speedup_scale = const.SPEEDUP_SCALE[difficulty_state]
+        self.game_settings.ship_speedup_scale = const.SPEEDUP_SCALE['ship'][difficulty_state]
+        self.game_settings.alien_speedup_scale = const.SPEEDUP_SCALE['alien'][difficulty_state]
+        self.game_settings.bullet_speedup_scale = const.SPEEDUP_SCALE['bullet'][difficulty_state]
         self._update_screen()
 
     def _start_game(self):

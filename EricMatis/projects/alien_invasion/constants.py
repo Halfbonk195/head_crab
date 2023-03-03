@@ -41,8 +41,22 @@ TEXT_PT = 60
 
 # Параметры игры
 SPEEDUP_SCALE = {
-    'Easy': 1.1,
-    'Normal': 1.2,
-    'Hard': 1.4,
-    'Impossible': 1.8,
+    'alien': {
+        'Easy': 1.1,
+        'Normal': 1.2,
+        'Hard': 1.4,
+        'Impossible': 1.8,
+    },
+    'ship': {
+        'Easy': 1.05,
+        'Normal': 1.1,
+        'Hard': 1.2,
+        'Impossible': 1.3,
+    },
+    'bullet': {
+        'Easy': 1.05,
+        'Normal': 1.1,
+        'Hard': 1.2,
+        'Impossible': 1.3,
+    }
 }
