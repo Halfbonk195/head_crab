@@ -33,6 +33,8 @@ class GameSettings:
         self.alien_speedup_scale = const.SPEEDUP_SCALE['alien']['Normal']
         self.ship_speedup_scale = const.SPEEDUP_SCALE['ship']['Normal']
         self.bullet_speedup_scale = const.SPEEDUP_SCALE['bullet']['Normal']
+        # Темп роста стоимости пришельцев
+        self.score_scale = const.SCORE_SCALE
 
         self.initialize_dynamic_settings()
 
@@ -42,12 +44,15 @@ class GameSettings:
         self.bullet_speed_factor = const.BULLET_SPEED
         self.alien_speed_factor = const.ALIEN_SPEED
         self.fleet_direction = 1  # fleet_direction = 1 обозначает движение вправо, а -1 - влево
+        self.alien_points = const.ALIEN_POINTS
 
     def increase_speed(self):
-        """Увеличивает настройки скорости."""
+        """Увеличивает настройки скорости и стоимость пришельцев."""
         self.ship_speed_factor *= self.ship_speedup_scale
         self.bullet_speed_factor *= self.bullet_speedup_scale
         self.alien_speed_factor *= self.alien_speedup_scale
+
+        self.alien_points = int(self.alien_points * self.score_scale)
 
 
 class MenuSettings:

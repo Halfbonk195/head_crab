@@ -11,6 +11,8 @@ class GameStats:
         self.game_active = False
         self.menu_state = 'main_menu'
         self.difficulty = 'Normal'
+        # Рекорд не должен сбрасываться
+        self.high_score = 0
 
     def reset_stats(self):
         """Инициализирует статистику, изменяющуюся в ходе игры."""
