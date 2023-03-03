@@ -10,6 +10,7 @@ from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from load_save import LoadSave
 import constants as const
 
 
@@ -36,6 +37,8 @@ class AlienInvasion:
         # Создание экземпляра для хранения игровой статистики
         # и панели результатов.
         self.stats = GameStats(self)
+        self.load_save = LoadSave(self)
+        self.load_save.read_high_score()
         self.sb = Scoreboard(self)
 
         self.ship = Ship(self)
@@ -243,6 +246,7 @@ class AlienInvasion:
         """Обрабатывает нажатия клавиш и события мыши"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.load_save.save_high_score()
                 sys.exit()
             # Движение корабля
             elif event.type == pygame.KEYDOWN:
@@ -273,6 +277,7 @@ class AlienInvasion:
         elif event.key == pygame.K_p:
             self._start_game()  # Начать новую игру.
         elif event.key == pygame.K_q:
+            self.load_save.save_high_score()
             sys.exit()  # Выход из игры.
 
     def _check_button_press(self, mouse_pos):
@@ -340,6 +345,7 @@ class AlienInvasion:
             self._change_menu_state('settings_menu')
         # Выход из игры
         elif buttons['exit_button'].rect.collidepoint(mouse_pos):
+            self.load_save.save_high_score()
             sys.exit()
 
     def _change_menu_state(self, state_menu):

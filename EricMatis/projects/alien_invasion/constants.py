@@ -41,6 +41,7 @@ TEXT_COLOR = COLOR_WHITE
 BUTTON_TEXT_PT = 60
 
 # Параметры игры
+SAVE_PATH = 'ai_saves/high_score.json'
 SPEEDUP_SCALE = {
     'alien': {
         'Easy': 1.05,

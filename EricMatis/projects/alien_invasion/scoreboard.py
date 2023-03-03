@@ -4,6 +4,7 @@ from pygame.sprite import Group
 import constants as const
 from ship import Ship
 
+
 class Scoreboard:
     """Класс для вывода игровой информации"""
 
