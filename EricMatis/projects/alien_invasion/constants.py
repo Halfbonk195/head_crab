@@ -8,6 +8,8 @@ COLOR_GREEN = (0, 255, 0)
 COLOR_LIME_GREEN = (50, 200, 100)
 COLOR_GRAY = (128, 128, 128)
 COLOR_DARK_GRAY = (41, 49, 51)
+COLOR_BLACK_GRAY = (30, 30, 30)
+
 # Параметры снаряда
 BULLET_SPEED = 2
 BULLET_WIDTH = 3
@@ -21,8 +23,6 @@ ALIEN_SPEED = 1.0
 DROP_SPEED = 10
 
 # Параметры корабля
-# SHIP_IMAGE_PATH = 'images/space_ship.png'
-
 SHIP_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'images', 'space_ship.png')
 SHIP_SPEED = 2
 SHIP_LIMIT = 3  # Максимальное количество кораблей за игру

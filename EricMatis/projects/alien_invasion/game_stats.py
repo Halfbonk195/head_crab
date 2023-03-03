@@ -1,3 +1,4 @@
+
 class GameStats:
     """Отслеживание статистики для игры Alien Invasion."""
 
@@ -14,3 +15,4 @@ class GameStats:
     def reset_stats(self):
         """Инициализирует статистику, изменяющуюся в ходе игры."""
         self.ships_left = self.game_settings.ship_limit
+        self.score = 0

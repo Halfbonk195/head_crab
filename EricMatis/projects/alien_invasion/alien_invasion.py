@@ -5,6 +5,7 @@ import pygame
 
 from setting import ScreenSettings, GameSettings, MenuSettings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
 from bullet import Bullet
@@ -32,8 +33,10 @@ class AlienInvasion:
         self.screen_settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption('Alien Invasion')
 
-        # Создание экземпляра для хранения игровой статистики.
+        # Создание экземпляра для хранения игровой статистики
+        # и панели результатов.
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -61,6 +64,9 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+
+        # Вывод информации о счете.
+        self.sb.show_score()
 
         # Кнопка Play отображается в том случае, если игра неактивна.
         if not self.stats.game_active:
@@ -111,7 +117,7 @@ class AlienInvasion:
             'hard_button': Button(self, 'Hard', coordinates['hard_button'], const.COLOR_GRAY),
             'impossible_button': Button(self, 'Impossible', coordinates['impossible_button'], const.COLOR_GRAY),
             current_difficulty_button: Button(self, self.stats.difficulty, coordinates[current_difficulty_button],
-                                              const.COLOR_DARK_GRAY)
+                                              const.COLOR_BLACK_GRAY)
         }
 
         # Создание вспомогательных кнопок для меню.
