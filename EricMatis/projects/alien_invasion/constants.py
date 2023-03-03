@@ -63,5 +63,6 @@ SPEEDUP_SCALE = {
 }
 
 # Параметры таблицы счета
-SB_TEXT_PT = 70
+SB_TEXT_PT = 50
+SB_NUMBERS_PT = 60
 SCORE_SCALE = 1.5
