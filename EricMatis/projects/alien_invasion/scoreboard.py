@@ -1,13 +1,15 @@
 import pygame.font
+from pygame.sprite import Group
 
 import constants as const
-
+from ship import Ship
 
 class Scoreboard:
     """Класс для вывода игровой информации"""
 
     def __init__(self, ai_game):
         """Инициализирует атрибуты подсчета очков."""
+        self.ai_game = ai_game
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.screen_settings
@@ -24,6 +26,7 @@ class Scoreboard:
         self.prep_high_score()
         self.prep_level()
         self.prep_labels()
+        self.prep_ships()
 
     def prep_score(self, text_color=const.COLOR_GRAY):
         """Преобразует текущий счет в графическое изображение."""
@@ -88,6 +91,15 @@ class Scoreboard:
         self.level_label_rect.centery = self.level_rect.centery
         self.level_label_rect.right = self.level_rect.left - 15
 
+    def prep_ships(self):
+        """Сообщает количество оставшихся кораблей."""
+        self.ships = Group()
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.ai_game)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
+
     def show_score(self):
         """Выводит текущий счет, рекорд и число оставшихся кораблей."""
         self.screen.blit(self.score_image, self.score_rect)
@@ -96,6 +108,7 @@ class Scoreboard:
         self.screen.blit(self.high_score_label_image, self.high_score_label_rect)
         self.screen.blit(self.score_label_image, self.score_label_rect)
         self.screen.blit(self.level_label_image, self.level_label_rect)
+        self.ships.draw(self.screen)
 
     def check_high_score(self):
         """Проверяет, появился ли новый рекорд."""

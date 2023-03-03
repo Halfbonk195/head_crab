@@ -171,9 +171,10 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """Обрабатывает столкновение коробля с пришельцем"""
-        # Уменьшение ships_left.
+        # Уменьшение ships_left и обновление панели счета.
         if self.stats.ships_left > 0:
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # Очистка списков пришельцев и снарядов.
             self.aliens.empty()
@@ -362,6 +363,7 @@ class AlienInvasion:
         self.sb.prep_score()
         self.sb.prep_level()
         self.sb.prep_labels()
+        self.sb.prep_ships()
         # Очистка списков пришельцев и снарядов.
         self.aliens.empty()
         self.bullets.empty()
