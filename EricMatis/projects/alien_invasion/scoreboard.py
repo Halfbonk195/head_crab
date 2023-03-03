@@ -59,18 +59,25 @@ class Scoreboard:
 
     def prep_labels(self):
         """Создание надписей на панале счета"""
-        high_score_label = f'High score'
-        score_label = f'Score'
-        level_label = f'Level'
 
-        self.high_score_label_image = self.label_font.render(high_score_label, True, self.text_color)
-        self.score_label_image = self.label_font.render(score_label, True, self.text_color)
-        self.level_label_image = self.label_font.render(level_label, True, self.text_color)
+        labels = {
+            'high_score': 'High score',
+            'score': 'Score',
+            'level': 'Level'
+        }
 
-        # Указываем расположение вывода меток
-        self.high_score_label_rect = self.high_score_label_image.get_rect()
-        self.score_label_rect = self.score_label_image.get_rect()
-        self.level_label_rect = self.level_label_image.get_rect()
+        self.label_images = {}
+        self.label_rects = {}
+
+        for label_name, label_text in labels.items():
+            label_image = self.label_font.render(label_text, True, self.text_color)
+            label_rect = label_image.get_rect()
+
+            setattr(self, f"{label_name}_label_image", label_image)
+            setattr(self, f"{label_name}_label_rect", label_rect)
+
+            self.label_images[label_name] = label_image
+            self.label_rects[label_name] = label_rect
 
         self.high_score_label_rect.centery = self.high_score_rect.centery
         self.high_score_label_rect.right = self.high_score_rect.left - 15
@@ -89,7 +96,6 @@ class Scoreboard:
         self.screen.blit(self.high_score_label_image, self.high_score_label_rect)
         self.screen.blit(self.score_label_image, self.score_label_rect)
         self.screen.blit(self.level_label_image, self.level_label_rect)
-
 
     def check_high_score(self):
         """Проверяет, появился ли новый рекорд."""
